@@ -19,7 +19,7 @@
 
 typedef struct	s_img
 {
-	void	*img;
+	void	*image;
 	int		*data;
 
 	int		size_l;
@@ -29,12 +29,12 @@ typedef struct	s_img
 
 typedef struct	s_info
 {
-	double posX;
-	double posY;
-	double dirX;
-	double dirY;
-	double planeX;
-	double planeY;
+	double	posX;
+	double	posY;
+	double	dirX;
+	double	dirY;
+	double	planeX;
+	double	planeY;
 	void	*mlx;
 	void	*win;
 	double	moveSpeed;
@@ -73,7 +73,9 @@ int	worldMap[24][24] = {
 							{1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}
 						};
 
+void	init_values(t_info *info);
 int		calc(t_info *info);
+void	re_init_buf(t_info *info);
 void	verLine(t_info *info, int x, int y1, int y2, int color);
 int		key_press(int key, t_info *info);
 
@@ -84,20 +86,59 @@ int	main(void)
 	info.mlx = mlx_init();
 	info.win = mlx_new_window(info.mlx, width, height, "mlx");
 
-	info.posX = 12;
-	info.posY = 5;
-	info.dirX = -1;
-	info.dirY = 0;
-	info.planeX = 0;
+	info.posX = 22.0;
+	info.posY = 11.5;
+
+	info.dirX = -1.0;
+	info.dirY = 0.0;
+
+	info.planeX = 0.0;
 	info.planeY = 0.66;
+
 	info.moveSpeed = 0.05;
 	info.rotSpeed = 0.05;
 
+	init_values(&info);
+	info.img.image = mlx_new_image(info.mlx, width, height);
+	info.img.data = (int *)mlx_get_data_addr(info.img.image, &info.img.bpp, &info.img.size_l, &info.img.endian);
 
+	// start
 	mlx_loop_hook(info.mlx, &calc, &info);
 	mlx_hook(info.win, X_EVENT_KEY_PRESS, 0, &key_press, &info);
 
 	mlx_loop(info.mlx);
+}
+
+void	init_values(t_info *info)
+{
+	// buf 초기화
+	info->buf = calloc(height, sizeof(int *));
+	for (int i = 0; i < height; i++)
+		info->buf[i] = calloc(width, sizeof(int));
+
+	// texture 초기화
+	for (int i = 0; i < 8; i++)
+		for (int j = 0; j < texWidth * texHeight; j++)
+			info->texture[i][j] = 0;
+
+	// 색 정하기...?
+	for (int x = 0; x < texWidth; x++)
+	{
+		for (int y = 0; y < texHeight; y++)
+		{
+			int xorcolor = (x * 256 / texWidth) ^ (y * 256 / texHeight);
+			int ycolor = y * 256 / texHeight;
+			int xycolor = y * 128 / texHeight + x * 128 / texWidth;
+			info->texture[0][texWidth * y + x] = 65536 * 254 * (x != y && x != texWidth - y); //flat red texture with black cross
+			info->texture[1][texWidth * y + x] = xycolor + 256 * xycolor + 65536 * xycolor; //sloped greyscale
+			info->texture[2][texWidth * y + x] = 256 * xycolor + 65536 * xycolor; //sloped yellow gradient
+			info->texture[3][texWidth * y + x] = xorcolor + 256 * xorcolor + 65536 * xorcolor; //xor greyscale
+			info->texture[4][texWidth * y + x] = 256 * xorcolor; //xor green
+			info->texture[5][texWidth * y + x] = 65536 * 192 * (x % 16 && y % 16); //red bricks
+			info->texture[6][texWidth * y + x] = 65536 * ycolor; //red gradient
+			info->texture[7][texWidth * y + x] = 128 + 256 * 128 + 65536 * 128; //flat grey texture
+		}
+	}
 }
 
 int	calc(t_info *info)
@@ -105,6 +146,7 @@ int	calc(t_info *info)
 	// 0 <= x < width: 화면 상의 한 pixel 값을 의미
 	int	x;
 
+	re_init_buf(info);
 	x = 0;
 	while (x < width)
 	{
@@ -196,27 +238,27 @@ int	calc(t_info *info)
 			drawEnd = height - 1;
 
 		// 3. 지정된 벽의 색깔에 맞춰 그리자
-		int	color;
-		if (worldMap[mapY][mapX] == 1)
-			color = 0xFF0000;
-		else if (worldMap[mapY][mapX] == 2)
-			color = 0x00FF00;
-		else if (worldMap[mapY][mapX] == 3)
-			color = 0x0000FF;
-		else if (worldMap[mapY][mapX] == 4)
-			color = 0xFFFFFF;
-		else
-			color = 0xFFFF00;
+		// texNum: 벽의 텍스쳐를 선택하기 위한 값
+		int texNum = worldMap[mapX][mapY];
 
-		if (side == 1)
-			color = color / 2;
+		// wallX: 벽의 int형 좌표가 아닌 double형으로, 정확히 어디에 부딪쳤는지 나타내는 값 -> 텍스처를 적용할 때, 어떤 x좌표를 이용해야 하는지 판단 시 사용
 
-		// 4. 색 입히기
-		verLine(info, x, drawStart, drawEnd, color);
+
+
 
 		x++;
 	}
 	return (0);
+}
+
+void	re_init_buf(t_info *info)
+{
+	if (info->re_buf == 0)
+		return ;
+	for (int i = 0; i < height; i++)
+		for (int j = 0; j < width; j++)
+			info->buf[i][j] = 0;
+	info->re_buf = 0;
 }
 
 void	verLine(t_info *info, int x, int y1, int y2, int color)
