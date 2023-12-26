@@ -1,16 +1,16 @@
 #include "./PhoneBook.hpp"
 
 PhoneBook::PhoneBook()
-	: _currIndex(0), \
-	  _contactCount(0),
-	  _question({"1. Enter your first name: ", \
-				"2. Enter your last name: ", \
-				"3. Enter your nickname: ", \
-				"4. Enter your phone number: ", \
-				"5. Enter your darkest secret: "})
+	: _currIndex(0), _contactCount(0)
 {
 	/* Constructor */
 	std::cout << "\nPhoneBook Constructor\n" << std::endl;
+
+	_question[0] = "1. Enter your first name: ";
+	_question[1] = "2. Enter your last name: ";
+	_question[2] = "3. Enter your nickname: ";
+	_question[3] = "4. Enter your phone number: ";
+	_question[4] = "5. Enter your darkest secret: ";
 }
 
 PhoneBook::~PhoneBook()
