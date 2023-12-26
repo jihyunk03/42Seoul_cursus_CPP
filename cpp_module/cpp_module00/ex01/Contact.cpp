@@ -35,7 +35,7 @@ static std::string	_getStrInRange(std::string str)
 {
 	if (str.length() < 10)
 		return str;
-	return str.substr(0, 9) + ".";
+	return (str.substr(0, 9) + ".");
 }
 
 void	Contact::showContact(void)

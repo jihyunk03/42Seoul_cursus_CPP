@@ -19,5 +19,4 @@ class PhoneBook
 		void	search(void);
 };
 
-
 #endif
