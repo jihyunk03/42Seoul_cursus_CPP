@@ -4,10 +4,8 @@ CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 RM			= rm -f
 
-SRCS_DIR	= ./
-
 SRCS		= megaphone.cpp
-OBJS		= $(addprefix $(SRCS_DIR), $(SRCS:.cpp=.o))
+OBJS		= $(SRCS:.cpp=.o)
 
 
 all		: $(NAME)
