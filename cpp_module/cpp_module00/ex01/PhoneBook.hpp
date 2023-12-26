@@ -7,6 +7,7 @@ class PhoneBook
 {
 	private:
 		int			_currIndex;
+		int			_contactCount;
 		std::string	_question[5];
 		Contact		_contacts[8];
 

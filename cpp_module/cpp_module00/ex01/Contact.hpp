@@ -2,6 +2,7 @@
 # define CONTACT_HPP
 
 # include <iostream>
+# include <iomanip>
 
 class Contact
 {
@@ -15,6 +16,10 @@ class Contact
 	public:
 		Contact();
 		~Contact();
+
+		void	setContact(std::string *contact);
+		void	previewContact(void);
+		void	showContact(void);
 };
 
 #endif

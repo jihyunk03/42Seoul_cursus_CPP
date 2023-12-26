@@ -6,7 +6,7 @@
 #    By: jihykim2 <jihykim2@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/23 17:12:47 by jihykim2          #+#    #+#              #
-#    Updated: 2023/12/23 17:12:49 by jihykim2         ###   ########.fr        #
+#    Updated: 2023/12/27 01:49:02 by jihykim2         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ RM			= rm -f
 
 SRCS_DIR	= ./
 
-SRCS		= Main.cpp \
+SRCS		= main.cpp \
 			  Contact.cpp \
 			  PhoneBook.cpp
 OBJS		= $(addprefix $(SRCS_DIR), $(SRCS:.cpp=.o))
