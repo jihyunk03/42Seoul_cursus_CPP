@@ -18,7 +18,7 @@ class Contact
 		~Contact();
 
 		void	setContact(std::string *contact);
-		void	previewContact(void);
+		void	previewContact(int index);
 		void	showContact(void);
 };
 

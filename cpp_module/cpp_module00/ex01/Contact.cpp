@@ -5,13 +5,11 @@ static std::string	_getStrInRange(std::string str);
 Contact::Contact()
 {
 	/* Constructor (default) */
-	std::cout << "constructor" << std::endl;
 }
 
 Contact::~Contact()
 {
 	/* Destructor */
-	std::cout << "destructor" << std::endl;
 }
 
 void	Contact::setContact(std::string *contact)
@@ -23,14 +21,13 @@ void	Contact::setContact(std::string *contact)
 	this->_secret = contact[4];
 }
 
-void	Contact::previewContact(void)
+void	Contact::previewContact(int contact_index)
 {
 	std::cout << "|" \
+		<< std::setw(10) << contact_index << "|" \
 		<< std::setw(10) << _getStrInRange(_firstName) << "|" \
 		<< std::setw(10) << _getStrInRange(_lastName) << "|" \
 		<< std::setw(10) << _getStrInRange(_nickName) << "|" \
-		<< std::setw(10) << _getStrInRange(_phoneNum) << "|" \
-		<< std::setw(10) << _getStrInRange(_secret) << "|" \
 		<< std::endl;
 }
 

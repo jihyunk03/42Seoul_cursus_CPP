@@ -16,7 +16,6 @@ PhoneBook::PhoneBook()
 PhoneBook::~PhoneBook()
 {
 	/* Destructor */
-	std::cout << "\nPhoneBook destructor\n" << std::endl;
 }
 
 void	PhoneBook::add(void)
@@ -29,7 +28,7 @@ void	PhoneBook::add(void)
 		do {
 			std::cout << _question[answer_idx];
 			std::getline(std::cin, answer[answer_idx]);
-		} while (answer[answer_idx] == "" && std::cin.eof() == true);
+		} while (answer[answer_idx] == "" || std::cin.eof() == true);
 	}
 	_contacts[_currIndex].setContact(answer);
 
@@ -51,7 +50,7 @@ void	PhoneBook::search(void)
 			  << " ------------------------------------------- " \
 			  << std::endl;
 	for (int preview_index = 0; preview_index < _contactCount; preview_index++)
-		_contacts[preview_index].previewContact();
+		_contacts[preview_index].previewContact(preview_index);
 	std::cout << " ------------------------------------------- " << std::endl;
 
 	do {
@@ -63,7 +62,7 @@ void	PhoneBook::search(void)
 	else
 	{
 		int	answer_index = answer[0] - '0';
-		if (answer_index < 0 || answer_index > _contactCount)
+		if (answer_index < 0 || answer_index + 1 > _contactCount)
 			std::cout << "Contact does not exist" << std::endl;
 		else
 			_contacts[answer_index].showContact();
