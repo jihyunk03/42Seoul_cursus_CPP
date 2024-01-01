@@ -1,11 +1,11 @@
 #include "./PhoneBook.hpp"
 
+static void	_clear_buffer(void);
+
 PhoneBook::PhoneBook()
 	: _currIndex(0), _contactCount(0)
 {
 	/* Constructor */
-	std::cout << "\nPhoneBook Constructor\n" << std::endl;
-
 	_question[0] = "1. Enter your first name: ";
 	_question[1] = "2. Enter your last name: ";
 	_question[2] = "3. Enter your nickname: ";
@@ -28,7 +28,9 @@ void	PhoneBook::add(void)
 		do {
 			std::cout << _question[answer_idx];
 			std::getline(std::cin, answer[answer_idx]);
-		} while (answer[answer_idx] == "" || std::cin.eof() == true);
+			if (std::cin.fail() == true)
+				_clear_buffer();
+		} while (answer[answer_idx] == "" || std::cin.fail() == true);
 	}
 	_contacts[_currIndex].setContact(answer);
 
@@ -36,6 +38,8 @@ void	PhoneBook::add(void)
 		_currIndex = 0;
 	if (_contactCount < 8)
 		_contactCount++;
+
+	std::cout << "---------------------" << std::endl;
 }
 
 void	PhoneBook::search(void)
@@ -43,28 +47,38 @@ void	PhoneBook::search(void)
 	std::string	answer;
 
 	std::cout << "--- [SEARCH CONTACT] ---" << std::endl;
-	std::cout << " ------------------------------------------- " \
+	std::cout << "---------------------------------------------" \
 			  << std::endl \
 			  << "|Index     |First-name|Last-name |Nick-name |" \
 			  << std::endl \
-			  << " ------------------------------------------- " \
+			  << "---------------------------------------------" \
 			  << std::endl;
 	for (int preview_index = 0; preview_index < _contactCount; preview_index++)
 		_contacts[preview_index].previewContact(preview_index);
-	std::cout << " ------------------------------------------- " << std::endl;
+	std::cout << "---------------------------------------------" << std::endl;
 
 	do {
-		std::cout << "Enter the index to search: ";
+		std::cout << "⚡\tEnter the index to search: ";
 		std::getline(std::cin, answer);
-	} while (answer == "" || std::cin.eof() == true);
+		if (std::cin.fail() == true)
+			_clear_buffer();
+	} while (answer == "" || std::cin.fail() == true);
+
 	if (answer.length() != 1)
-		std::cout << "Contact does not exist" << std::endl;
+		std::cout << "X\tContact does not exist" << std::endl;
 	else
 	{
 		int	answer_index = answer[0] - '0';
 		if (answer_index < 0 || answer_index + 1 > _contactCount)
-			std::cout << "Contact does not exist" << std::endl;
+			std::cout << "X\tContact does not exist" << std::endl;
 		else
 			_contacts[answer_index].showContact();
 	}
+}
+
+static void	_clear_buffer(void)
+{
+	clearerr(stdin);
+	std::cin.clear();
+	std::cout << std::endl;
 }

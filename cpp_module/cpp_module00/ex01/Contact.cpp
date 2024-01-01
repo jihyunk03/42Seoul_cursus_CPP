@@ -1,6 +1,6 @@
 #include "./Contact.hpp"
 
-static std::string	_getStrInRange(std::string str);
+static std::string	_get_str_in_range(std::string str);
 
 Contact::Contact()
 {
@@ -25,24 +25,26 @@ void	Contact::previewContact(int contact_index)
 {
 	std::cout << "|" \
 		<< std::setw(10) << contact_index << "|" \
-		<< std::setw(10) << _getStrInRange(_firstName) << "|" \
-		<< std::setw(10) << _getStrInRange(_lastName) << "|" \
-		<< std::setw(10) << _getStrInRange(_nickName) << "|" \
+		<< std::setw(10) << _get_str_in_range(_firstName) << "|" \
+		<< std::setw(10) << _get_str_in_range(_lastName) << "|" \
+		<< std::setw(10) << _get_str_in_range(_nickName) << "|" \
 		<< std::endl;
-}
-
-static std::string	_getStrInRange(std::string str)
-{
-	if (str.length() < 10)
-		return str;
-	return (str.substr(0, 9) + ".");
 }
 
 void	Contact::showContact(void)
 {
+	std::cout << "--- [SHOW CONTACT] ---" << std::endl;
 	std::cout << "First name:    \t" << _firstName << std::endl \
 			  << "Last name:     \t" << _lastName << std::endl \
 			  << "Nick-name:     \t" << _nickName << std::endl \
 			  << "Phone num:     \t" << _phoneNum << std::endl \
 			  << "Darkest secret:\t" << _secret << std::endl;
+	std::cout << "----------------------" << std::endl;
+}
+
+static std::string	_get_str_in_range(std::string str)
+{
+	if (str.length() < 10)
+		return str;
+	return (str.substr(0, 9) + ".");
 }

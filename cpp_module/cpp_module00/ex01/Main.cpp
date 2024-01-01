@@ -1,5 +1,7 @@
 #include "./PhoneBook.hpp"
 
+static void	_clear_buffer(void);
+
 int	main(void)
 {
 	PhoneBook	phonebook;
@@ -18,13 +20,18 @@ int	main(void)
 			phonebook.search();
 		else if (command == "EXIT")
 			std::cout << "==== EXIT PROGRAM ====" << std::endl;
-		else	// 이거 좀 이상한데 고치자
-		{
-			std::cout << "--- Invalid Command ---" << std::endl;
-			std::cin.clear();
-			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-		}
+		else if (std::cin.fail() == true)
+			_clear_buffer();
+		else
+			std::cout << "X\tCommand does not exist" << std::endl;
 	}
 
 	return (0);
+}
+
+static void	_clear_buffer(void)
+{
+	clearerr(stdin);
+	std::cin.clear();
+	std::cout << std::endl;
 }
