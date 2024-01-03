@@ -1,10 +1,11 @@
-NAME		= replace
+NAME		= harl
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 RM			= rm -f
 
-SRCS		= main.cpp
+SRCS		= main.cpp \
+			  Harl.cpp
 OBJS		= $(SRCS:.cpp=.o)
 
 
@@ -15,15 +16,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ replace ]	Ready to use replace" $(RESET)
+	@echo $(GREEN) "⚡︎	[ harl ]	Ready to use harl" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ replace ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ harl ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ replace ]	Removed replace" $(RESET)
+	@echo $(GREEN) "⚡︎	[ harl ]	Removed harl" $(RESET)
 
 re		:
 	@$(MAKE) fclean
