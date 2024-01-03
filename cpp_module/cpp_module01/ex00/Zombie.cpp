@@ -1,9 +1,9 @@
 #include "./Zombie.hpp"
 
 Zombie::Zombie(std::string name)
+	: _name(name)
 {
 	/* Constructor */
-	this->_name = name;
 	std::cout << "[Zombie Constructor] name: " << this->_name << std::endl;
 }
 

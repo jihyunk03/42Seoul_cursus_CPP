@@ -1,15 +1,16 @@
 #include "./Zombie.hpp"
 
 Zombie::Zombie()
+	: _name("")
 {
 	/* Constructor */
-	this->_name = "";
+	std::cout << "[Zombie Constructor] default" << std::endl;
 }
 
 Zombie::Zombie(std::string name)
+	: _name(name)
 {
 	/* Constructor */
-	this->_name = name;
 	std::cout << "[Zombie Constructor] name: " << this->_name << std::endl;
 }
 
