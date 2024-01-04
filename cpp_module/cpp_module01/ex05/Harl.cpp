@@ -15,7 +15,7 @@ Harl::~Harl()
 /* Member Functions */
 void	Harl::debug(void)
 {
-	std::cout << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special- ketchup burger. I really do!" << std::endl;
+	std::cout << "I love having extra bacon for my 7XL-double-cheese-triple-pickle-special-ketchup burger. I really do!" << std::endl;
 }
 
 void	Harl::info(void)
@@ -35,10 +35,12 @@ void	Harl::error(void)
 
 void	Harl::complain(std::string level)
 {
-	void (Harl::*func_ptr[4])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+	typedef void	(Harl::*FuncPtr)(void);
+
+	FuncPtr	func_arr[] = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
 	std::string	levels[4] = {"DEBUG", "INFO", "WARNING", "ERROR"};
 
-	// for (int index = 0; index < 4; index++)
-	// 	if (level == levels[index])
-	// 		(this->*func_ptr[index])();
+	for (int index = 0; index < 4; index++)
+		if (level == levels[index])
+			(this->*func_arr[index])();
 }
