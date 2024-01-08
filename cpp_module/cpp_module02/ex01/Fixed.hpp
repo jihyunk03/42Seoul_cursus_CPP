@@ -13,7 +13,7 @@ class Fixed
 		/* OCCF */
 		Fixed();
 		Fixed(const Fixed& origin);
-		Fixed&	operator=(const Fixed &origin);
+		Fixed&	operator=(const Fixed& origin);
 		~Fixed();
 
 		Fixed(const int value);

@@ -16,7 +16,7 @@ Fixed::Fixed(const Fixed& origin)
 }
 
 /* operator overloading */
-Fixed& Fixed::operator=(const Fixed &origin)
+Fixed& Fixed::operator=(const Fixed& origin)
 {
 	std::cout << "**\t[OCCF]: operator overloading" << std::endl;
 	// std::cout << "!!\tthis address of operator-overloading : " << this << std::endl;
