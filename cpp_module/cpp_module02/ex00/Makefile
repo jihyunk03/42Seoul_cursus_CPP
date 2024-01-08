@@ -6,6 +6,7 @@ RM			= rm -f
 
 SRCS		= main.cpp \
 			  Fixed.cpp
+INCS		= Fixed.hpp
 OBJS		= $(SRCS:.cpp=.o)
 
 
@@ -14,7 +15,7 @@ all		: $(NAME)
 %.o		: %.cpp
 	@$(CXX) $(CXXFLAGS) -c $< -o $@
 
-$(NAME)	: $(OBJS)
+$(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo $(GREEN) "⚡︎	[ OCCF ]	Ready to use OCCF" $(RESET)
 
