@@ -31,6 +31,7 @@ Fixed::~Fixed()
 	std::cout << "**\t[OCCF]: destructor" << std::endl;
 }
 
+/* member functions */
 int	Fixed::getRawBits(void) const
 {
 	std::cout << "*\t[member-function]: getRawbits" << std::endl;

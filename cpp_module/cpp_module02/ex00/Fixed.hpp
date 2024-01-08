@@ -10,11 +10,13 @@ class Fixed
 		static const int	_bits = 8;
 
 	public:
+		/* OCCF */
 		Fixed();
 		Fixed(const Fixed& origin);
-		Fixed& operator=(const Fixed &origin);
+		Fixed&	operator=(const Fixed &origin);
 		~Fixed();
 
+		/* member functions */
 		int		getRawBits(void) const;
 		void	setRawBits(int const raw);
 };
