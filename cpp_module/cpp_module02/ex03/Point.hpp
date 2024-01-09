@@ -20,6 +20,13 @@ class Point
 		/* member functions */
 		Fixed	getX(void) const;
 		Fixed	getY(void) const;
+
+		/* operator overloading */
+		// Fixed	operator+(const Point& point);
+		// Fixed	operator-(const Point& point);
+
+		/* static functions */
+		// static Fixed	crossXY(const Point& x, const Point& y);
 };
 
 bool bsp(Point const a, Point const b, Point const c, Point const point);

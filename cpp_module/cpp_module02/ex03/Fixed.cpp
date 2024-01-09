@@ -10,13 +10,13 @@ Fixed::Fixed()
 Fixed::Fixed(const int value)
 {
 	// std::cout << "**\t[OCCF]: int constructor(" << value << ")" << std::endl;
-	this->_value = value << 8;
+	this->_value = value << this->_bits;
 }
 
 Fixed::Fixed(const float value)
 {
 	// std::cout << "**\t[OCCF]: float constructor(" << value << ")" << std::endl;
-	this->_value = roundf(value * 256);
+	this->_value = roundf(value * (1 << this->_bits));
 }
 
 /* OCCF: copy constructor */
@@ -56,12 +56,12 @@ void	Fixed::setRawBits(int const raw)
 
 int	Fixed::toInt(void) const
 {
-	return this->_value >> 8;
+	return this->_value >> this->_bits;
 }
 
 float	Fixed::toFloat(void) const
 {
-	return float(this->_value) / float(256);
+	return float(this->_value) / float(1 << this->_bits);
 }
 
 std::ostream&	operator<<(std::ostream &out, const Fixed &print)
@@ -102,22 +102,22 @@ bool	Fixed::operator!=(const Fixed& cmp)
 }
 
 /* arithmetic operator overloading */
-float	Fixed::operator+(const Fixed& arth)
+Fixed	Fixed::operator+(const Fixed& arth)
 {
 	return this->toFloat() + arth.toFloat();
 }
 
-float	Fixed::operator-(const Fixed& arth)
+Fixed	Fixed::operator-(const Fixed& arth)
 {
 	return this->toFloat() - arth.toFloat();
 }
 
-float	Fixed::operator*(const Fixed& arth)
+Fixed	Fixed::operator*(const Fixed& arth)
 {
 	return this->toFloat() * arth.toFloat();
 }
 
-float	Fixed::operator/(const Fixed& arth)
+Fixed	Fixed::operator/(const Fixed& arth)
 {
 	return this->toFloat() / arth.toFloat();
 }

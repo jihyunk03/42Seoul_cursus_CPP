@@ -36,10 +36,10 @@ class Fixed
 		bool				operator!=(const Fixed& cmp);
 
 		/* arithmetic operator overloading */
-		float				operator+(const Fixed& arth);
-		float				operator-(const Fixed& arth);
-		float				operator*(const Fixed& arth);
-		float				operator/(const Fixed& arth);
+		Fixed				operator+(const Fixed& arth);
+		Fixed				operator-(const Fixed& arth);
+		Fixed				operator*(const Fixed& arth);
+		Fixed				operator/(const Fixed& arth);
 
 		/* incre/decre-ment(pre & post) operator overloading */
 		Fixed&				operator++(void);	// pre
