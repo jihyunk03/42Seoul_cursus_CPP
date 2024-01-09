@@ -9,9 +9,9 @@ int	main(void)
 
 	std::cout << "The point of (" << point.getX() << ", " << point.getY() << ") is ";
 	if (bsp(a, b, c, point) == true)
-		std::cout << "in the triangle 🙆🏻‍♀️" << std::endl;
+		std::cout << "in the triangle 🙆" << std::endl;
 	else
-		std::cout << "out of the triangle 🙅🏻‍♀️" << std::endl;
+		std::cout << "out of the triangle 🙅" << std::endl;
 
 	return 0;
 }
