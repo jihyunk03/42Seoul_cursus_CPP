@@ -21,9 +21,9 @@ Fixed::Fixed(const float value)
 
 /* OCCF: copy constructor */
 Fixed::Fixed(const Fixed& origin)
+	: _value(origin.getRawBits())
 {
 	// std::cout << "**\t[OCCF]: copy constructor" << std::endl;
-	*this = origin;
 }
 
 /* OCCF: operator overloading */
