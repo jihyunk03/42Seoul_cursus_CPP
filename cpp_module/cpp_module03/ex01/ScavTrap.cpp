@@ -4,7 +4,10 @@
 ScavTrap::ScavTrap()
     : ClapTrap()            // constructor of deault-c
 {
-    std::cout << "🧒 [ScavTrap]: default constructor" << std::endl;
+    this->_hitPoints = 100;
+    this->_energyPoints = 50;
+    this->_attackDamage = 20;
+    std::cout << "👦 [ScavTrap]: default constructor" << std::endl;
 }
 
 ScavTrap::ScavTrap(const std::string name)
@@ -14,7 +17,7 @@ ScavTrap::ScavTrap(const std::string name)
     this->_hitPoints = 100;
     this->_energyPoints = 50;
     this->_attackDamage = 20;
-    std::cout << "🧒 [ScavTrap]: name constructor(" << this->_name << ")" << std::endl;
+    std::cout << "👦 [ScavTrap]: name constructor(" << this->_name << ")" << std::endl;
 }
 
 /* OCCF: copy constructor */
@@ -25,13 +28,13 @@ ScavTrap::ScavTrap(const ScavTrap& origin)
     this->_hitPoints = origin._hitPoints;
     this->_energyPoints = origin._energyPoints;
     this->_attackDamage = origin._attackDamage;
-    std::cout << "🧒 [ScavTrap]: copy constructor(" << this->_name << ")" << std::endl;
+    std::cout << "👦 [ScavTrap]: copy constructor(" << this->_name << ")" << std::endl;
 }
 
 /* OCCF: copy assignment operator overloading */
 ScavTrap&   ScavTrap::operator=(const ScavTrap& origin)
 {
-    std::cout << "🧒 [ScavTrap]: copy assignment operator overloading" << std::endl;
+    std::cout << "👦 [ScavTrap]: copy assignment operator overloading" << std::endl;
     if (this != &origin)
     {
         this->_name = origin._name;
@@ -45,13 +48,13 @@ ScavTrap&   ScavTrap::operator=(const ScavTrap& origin)
 /* OCCF: destructor */
 ScavTrap::~ScavTrap()
 {
-    std::cout << "🧒 [ScavTrap]: destructor" << std::endl;
+    std::cout << "👦 [ScavTrap]: destructor" << std::endl;
 }
 
 /* parent-class member function overloading */
 void    ScavTrap::attack(const std::string& target)
 {
-    std::cout << "🧒 '" << this->_name << "'";
+    std::cout << "👦 '" << this->_name << "'";
     if (this->_energyPoints > 0)
     {
         this->_energyPoints--;
@@ -65,7 +68,7 @@ void    ScavTrap::attack(const std::string& target)
 /* member functions */
 void    ScavTrap::guardGate(void)
 {
-    std::cout << "🧒 '" << this->_name << "'";
+    std::cout << "👦 '" << this->_name << "'";
     if (this->_energyPoints > 0)
     {
         this->_energyPoints--;
