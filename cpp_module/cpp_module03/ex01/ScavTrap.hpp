@@ -15,10 +15,10 @@ class ScavTrap
         ~ScavTrap();
 
         /* parent-class member function overloading */
-        void    attack(const std::string& target);
+        virtual void    attack(const std::string& target);
 
         /* member functons */
-        void    guardGate(void);
+        void            guardGate(void);
 };
 
 #endif

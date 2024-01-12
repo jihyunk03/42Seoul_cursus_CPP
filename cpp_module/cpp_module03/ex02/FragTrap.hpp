@@ -15,10 +15,10 @@ class FragTrap
         ~FragTrap();
 
         /* parent-class member function overloading */
-        void    attack(const std::string& target);
+        virtual void    attack(const std::string& target);
 
         /* member functons */
-        void    highFivesGuys(void);
+        void            highFivesGuys(void);
 };
 
 #endif
