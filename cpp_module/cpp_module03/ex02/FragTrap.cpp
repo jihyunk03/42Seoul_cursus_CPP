@@ -51,20 +51,6 @@ FragTrap::~FragTrap()
     std::cout << "👧 [FragTrap]: destructor" << std::endl;
 }
 
-/* parent-class member function overloading */
-void    FragTrap::attack(const std::string& target)
-{
-    std::cout << "👧 '" << this->_name << "'";
-    if (this->_energyPoints > 0)
-    {
-        this->_energyPoints--;
-        std::cout << " attacks '" << target << "', causing " << this->_attackDamage << " points of damage! 😁" << std::endl;
-    }
-    else
-        std::cout << " has no Energy 😵" << std::endl;
-
-}
-
 /* member functions */
 void    FragTrap::highFivesGuys(void)
 {

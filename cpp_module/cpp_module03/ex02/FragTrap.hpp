@@ -14,9 +14,6 @@ class FragTrap
         FragTrap& operator=(const FragTrap& origin);
         ~FragTrap();
 
-        /* parent-class member function overloading */
-        virtual void    attack(const std::string& target);
-
         /* member functons */
         void            highFivesGuys(void);
 };
