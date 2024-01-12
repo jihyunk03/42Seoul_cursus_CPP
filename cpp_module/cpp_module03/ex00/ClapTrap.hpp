@@ -1,11 +1,11 @@
-#ifndef CLAPTRAP
-# define CLAPTRAP
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
 
 # include <iostream>
 
 class ClapTrap
 {
-    protected:
+    private:
         std::string     _name;
         unsigned int    _hitPoints;     // 체력
         unsigned int    _energyPoints;  // 행동력
@@ -20,8 +20,6 @@ class ClapTrap
         ~ClapTrap();
 
         /* member functions */
-
-
         void    attack(const std::string& target);      // 행동력이 있는 경우 공격가능
         void    takeDamage(unsigned int amount);        // 공격을 받아서 체력 줄어듦
         void    beRepaired(unsigned int amount);        // 체력 회복
