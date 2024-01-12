@@ -42,7 +42,7 @@ void Brain::setIdeas(int idx, const std::string& ideas)
         this->_ideas[idx] = ideas;
 }
 
-const std::string& Brain::getIdeas(int idx) const
+const std::string Brain::getIdeas(int idx) const
 {
     if (idx >= 100 || idx < 0)
     {

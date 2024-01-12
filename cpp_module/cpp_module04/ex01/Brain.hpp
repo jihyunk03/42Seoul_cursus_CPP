@@ -17,7 +17,7 @@ class Brain
 
         /* member functions */
         void                setIdeas(int idx, const std::string& ideas);
-        const std::string&  getIdeas(int idx) const;
+        const std::string   getIdeas(int idx) const;
 };
 
 #endif
