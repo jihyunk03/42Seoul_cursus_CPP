@@ -1,3 +1,4 @@
+#pragma once
 #ifndef DIAMONDTRAP_HPP
 # define DIAMONDTRAP_HPP
 
@@ -12,32 +13,14 @@ class DiamondTrap
     public:
         /* OCCF */
         DiamondTrap();
+        DiamondTrap(const std::string name);
         DiamondTrap(const DiamondTrap& origin);
         DiamondTrap& operator=(const DiamondTrap& origin);
         ~DiamondTrap();
 
         /* member functions */
+        void    whoAmI(void);
+        void    printAll(void);
 };
-
-/* OCCF: constructor */
-DiamondTrap::DiamondTrap()
-    : ClapTrap(), _name(ClapTrap::_name)
-{
-}
-
-/* OCCF: copy constructor */
-DiamondTrap::DiamondTrap(const DiamondTrap& origin)
-{
-
-}
-
-/* OCCF: copy assignment operator overloading */
-
-
-/* OCCF: destructor */
-DiamondTrap::~DiamondTrap()
-{
-}
-
 
 #endif

@@ -4,8 +4,11 @@
 # include "./ClapTrap.hpp"
 
 class ScavTrap
-    : public ClapTrap
+    : virtual public ClapTrap
 {
+    protected:
+        static const int _scav_energyPoints = 50;
+
     public:
         /* OCCF */
         ScavTrap();

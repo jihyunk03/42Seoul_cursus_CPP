@@ -4,8 +4,12 @@
 # include "./ClapTrap.hpp"
 
 class FragTrap
-    : public ClapTrap
+    : virtual public ClapTrap
 {
+    protected:
+        static const int _frag_hitPoints = 100;
+        static const int _frag_attackDamage = 30;
+
     public:
         /* OCCF */
         FragTrap();
@@ -13,9 +17,6 @@ class FragTrap
         FragTrap(const FragTrap& origin);
         FragTrap& operator=(const FragTrap& origin);
         ~FragTrap();
-
-        /* parent-class member function overloading */
-        virtual void    attack(const std::string& target);
 
         /* member functons */
         void            highFivesGuys(void);

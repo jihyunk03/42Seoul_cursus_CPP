@@ -1,95 +1,40 @@
-#include "./ScavTrap.hpp"
-#include "./FragTrap.hpp"
+#include "./DiamondTrap.hpp"
 
 int main(void)
 {
-    std::cout << "\n============[ScavTrap]=============" << std::endl;
-    {
-        ScavTrap    jihyun("Jihyun");
+    std::cout << "\n============[DiamondTrap]=============" << std::endl;
 
-        jihyun.attack("sohyun");
+    DiamondTrap jihyun("Jihyun");
+    jihyun.printAll();
 
-        jihyun.takeDamage(5);
-        jihyun.takeDamage(5);
-        jihyun.takeDamage(5);
+    jihyun.attack("sohyun");
+    jihyun.whoAmI();
+    jihyun.printAll();
 
-        jihyun.beRepaired(100);
+    std::cout << "\n----------------------------------\n" << std::endl;
 
-        jihyun.guardGate();
+    ClapTrap*   jiji = new DiamondTrap("Jiji");
 
-        std::cout << "\n----------------------------------\n" << std::endl;
+    jiji->attack("sohyun");
+    // jiji->whoAmI();
+    // jiji->printAll();
 
-        ClapTrap*   jiji = new ScavTrap("Jiji");
+    delete jiji;
 
-        jiji->attack("sohyun");
+    std::cout << "\n----------------------------------\n" << std::endl;
 
-        jiji->takeDamage(5);
-        jiji->takeDamage(5);
-        jiji->takeDamage(5);
+    DiamondTrap *soso = new DiamondTrap("sohyun");
+    soso->printAll();
 
-        jiji->beRepaired(100);
+    delete soso;
 
-        // jiji->guardGate();
+    std::cout << "\n----------------------------------\n" << std::endl;
 
-        delete jiji;
+    DiamondTrap jiso = jihyun;
+    jiso.whoAmI();
+    jiso.printAll();
 
-        std::cout << "\n----------------------------------\n" << std::endl;
-
-        // ClapTrap sohyun("sohyun");
-        // ScavTrap soso(sohyun);
-        ScavTrap soso(jihyun);
-
-        soso.attack("sohyun");
-
-        soso.takeDamage(5);
-
-        soso.guardGate();
-
-    }
-
-    std::cout << "\n============[FragTrap]=============" << std::endl;
-    {
-        FragTrap    jihyun("Jihyun");
-
-        jihyun.attack("sohyun");
-
-        jihyun.takeDamage(5);
-        jihyun.takeDamage(5);
-        jihyun.takeDamage(5);
-
-        jihyun.beRepaired(100);
-
-        jihyun.highFivesGuys();
-
-        std::cout << "\n----------------------------------\n" << std::endl;
-
-        ClapTrap*   jiji = new FragTrap("Jiji");
-
-        jiji->attack("sohyun");
-
-        jiji->takeDamage(5);
-        jiji->takeDamage(5);
-        jiji->takeDamage(5);
-
-        jiji->beRepaired(100);
-
-        // jiji->highFivesGuys();
-
-        delete jiji;
-
-        std::cout << "\n----------------------------------\n" << std::endl;
-
-        // ClapTrap sohyun("sohyun");
-        // FragTrap soso(sohyun);
-        FragTrap soso(jihyun);
-
-        soso.attack("sohyun");
-
-        soso.takeDamage(5);
-
-        soso.highFivesGuys();
-
-    }
+    std::cout << "\n----------------------------------\n" << std::endl;
 
     return 0;
 }
