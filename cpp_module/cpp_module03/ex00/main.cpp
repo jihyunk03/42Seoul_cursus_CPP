@@ -12,5 +12,7 @@ int main(void)
 
     jihyun.beRepaired(100);
 
+    jihyun.takeDamage(5);
+
     return 0;
 }
