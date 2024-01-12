@@ -8,11 +8,13 @@ SRCS		= main.cpp \
 			  Animal.cpp \
 			  Dog.cpp \
 			  Cat.cpp \
+			  Brain.cpp \
 			  WrongAnimal.cpp \
 			  WrongCat.cpp
 INCS		= Animal.hpp \
 			  Dog.hpp \
 			  Cat.hpp \
+			  Brain.hpp \
 			  WrongAnimal.hpp \
 			  WrongCat.hpp
 OBJS		= $(SRCS:.cpp=.o)
