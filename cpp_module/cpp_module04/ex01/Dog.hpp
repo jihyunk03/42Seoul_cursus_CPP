@@ -19,6 +19,7 @@ class Dog
 
         /* member functions */
         virtual void    makeSound(void) const;
+        Brain*          getBrain() const;
 };
 
 #endif

@@ -32,6 +32,7 @@ Cat& Cat::operator=(const Cat& origin)
 /* OCCF: destructor */
 Cat::~Cat()
 {
+    delete this->_catBrain;
     std::cout << "🐱 [Cat]: destructor" << std::endl;
 }
 
@@ -39,4 +40,9 @@ Cat::~Cat()
 void    Cat::makeSound(void) const
 {
     std::cout << "🐱 meow~~~ meow~~~ 🐱" << std::endl;
+}
+
+Brain*  Cat::getBrain(void) const
+{
+    return this->_catBrain;
 }

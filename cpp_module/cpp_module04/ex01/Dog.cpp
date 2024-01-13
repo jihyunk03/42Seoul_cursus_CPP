@@ -32,6 +32,7 @@ Dog& Dog::operator=(const Dog& origin)
 /* OCCF: destructor */
 Dog::~Dog()
 {
+    delete this->_dogBrain;
     std::cout << "🐶 [Dog]: destructor" << std::endl;
 }
 
@@ -39,4 +40,9 @@ Dog::~Dog()
 void    Dog::makeSound(void) const
 {
     std::cout << "🐶 bark!!! bark!!! 🐶" << std::endl;
+}
+
+Brain*  Dog::getBrain(void) const
+{
+    return this->_dogBrain;
 }

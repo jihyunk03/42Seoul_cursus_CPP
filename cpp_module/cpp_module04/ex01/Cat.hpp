@@ -19,6 +19,7 @@ class Cat
 
         /* member functions */
         virtual void    makeSound(void) const;
+        Brain*          getBrain(void) const;
 };
 
 #endif
