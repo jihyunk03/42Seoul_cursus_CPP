@@ -65,10 +65,9 @@ void MateriaSource::learnMateria(AMateria* learn)
 
 AMateria* MateriaSource::createMateria(const std::string& type)
 {
-    if (type == "ice")
-        return new Ice();
-    else if (type == "cure")
-        return new Cure();
+    for (int i = 0; i < this->_tempIndex; i++)
+        if (this->_templates[i]->getType() == type)
+            return this->_templates[i]->clone();
     std::cout << "📕 [ERROR]: type'" << type << "' is not exist ❌" << std::endl;
     return NULL;
 }

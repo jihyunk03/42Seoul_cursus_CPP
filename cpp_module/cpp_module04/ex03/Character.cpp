@@ -68,6 +68,11 @@ const std::string& Character::getName(void) const
 
 void Character::equip(AMateria* m)
 {
+    if (m == NULL)
+    {
+        std::cout << "🐰 [NULL]: cannot equip" << std::endl;
+        return ;
+    }
     if (this->_invCount == 4)
     {
         std::cout << "🐰 [FULL]: cannot equip the type(" << m->getType() << ") 🥲" << std::endl;
@@ -86,7 +91,7 @@ void Character::equip(AMateria* m)
 
 void Character::unequip(int idx)
 {
-    if (idx >= 4)
+    if (idx >= 4 || idx < 0 || this->_inventory[idx] == NULL)
     {
         std::cout << "🐰 [WRONG]: index does not exist 🥲" << std::endl;
         return ;
@@ -104,6 +109,5 @@ void Character::use(int idx, ICharacter& target)
         std::cout << "🐰 [NO]: cannot use inventory(" << idx << ") 🥲" << std::endl;
         return ;
     }
-    // std::cout << "🐰 " << this->_name << "\t";
     this->_inventory[idx]->use(target);
 }
