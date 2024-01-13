@@ -9,7 +9,7 @@ WrongCat::WrongCat()
 
 /* OCCF: copy constructor */
 WrongCat::WrongCat(const WrongCat& origin)
-    : WrongAnimal(origin), _wrongCatBrain(new Brain())
+    : WrongAnimal(origin)
 {
     this->_wrongCatBrain = origin.getBrain();
     std::cout << "🆇  [WrongCat]: copy constructor" << std::endl;
@@ -31,7 +31,7 @@ WrongCat& WrongCat::operator=(const WrongCat& origin)
 /* OCCF: destructor */
 WrongCat::~WrongCat()
 {
-    delete this->_wrongCatBrain; this->_wrongCatBrain = NULL;
+    // delete this->_wrongCatBrain; this->_wrongCatBrain = NULL;
     std::cout << "🆇  [WrongCat]: destructor" << std::endl;
 }
 
