@@ -32,7 +32,7 @@ Dog& Dog::operator=(const Dog& origin)
 /* OCCF: destructor */
 Dog::~Dog()
 {
-    delete this->_dogBrain;
+    delete this->_dogBrain; this->_dogBrain = NULL;
     std::cout << "🐶 [Dog]: destructor" << std::endl;
 }
 

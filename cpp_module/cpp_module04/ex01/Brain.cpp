@@ -12,7 +12,6 @@ Brain::Brain()
 Brain::Brain(const Brain& origin)
 {
     std::cout << "🧠 [Brain]: copy constructor" << std::endl;
-    // *this = origin;
     for (int i = 0; i < 100; i++)
         this->_ideas[i] = origin._ideas[i];
 }

@@ -1,9 +1,12 @@
 #include "./Dog.hpp"
 #include "./Cat.hpp"
-#include "./WrongCat.hpp"
+// #include "./WrongCat.hpp"
+
+// static void _leak_check(void);
 
 int main(void)
 {
+    // atexit(_leak_check);
     std::cout << "=========================[Right implementation]=========================" << std::endl;
     {
         const int   N = 16;
@@ -51,10 +54,47 @@ int main(void)
     }
     std::cout << "------------------------------------------" << std::endl;
 
-    std::cout << "\n=========================[Wrong implementation]=========================" << std::endl;
-    {
+    // std::cout << "\n=========================[Wrong implementation]=========================" << std::endl;
+    // {
+    //     const int   N = 16;
+    //     WrongAnimal *wrongAnimals[N];
 
-    }
+    //     std::cout << "-------------array of wrongAnimals-------------" << std::endl;
+    //     for (int i = 0; i < N; i++)
+    //         wrongAnimals[i] = new WrongCat();
+    //     std::cout << "------------------------------------------" << std::endl;
+    //     for (int i = 0; i < N; i++)
+    //     {
+    //         std::cout << "--wrongAnimals[" << i << "]--" << std::endl;
+    //         std::cout << "❌ wrongAnimal type is " << wrongAnimals[i]->getType() << "and it'll be destroied" << std::endl;
+    //         wrongAnimals[i]->makeSound();
+    //         delete wrongAnimals[i];
+    //     }
+    //     std::cout << "------------------------------------------" << std::endl;
+
+    //     std::cout << "----------deep copy implemetaion----------" << std::endl;
+    //     WrongCat    barkbark;
+    //     WrongCat*   gangme = new WrongCat(barkbark);
+    //     const int   index = 8;
+
+    //     std::cout << "------------------------------------------" << std::endl;
+    //     std::cout << "[before] 🐶barkbark's ideas(" << index << "): " << barkbark.getBrain()->getIdeas(index) << std::endl;
+    //     std::cout << "[before] 🐶gangme's ideas(" << index << "): " << gangme->getBrain()->getIdeas(index) << std::endl;
+
+    //     barkbark.getBrain()->setIdeas(index, "bark!! yammy~~~~~~🦴");
+    //     gangme->getBrain()->setIdeas(index, "haha~~ I'm so cute!😚");
+
+    //     std::cout << "[after] 🐶barkbark's ideas(" << index << "): " << barkbark.getBrain()->getIdeas(index) << std::endl;
+    //     std::cout << "[after] 🐶gangme's ideas(" << index << "): " << gangme->getBrain()->getIdeas(index) << std::endl;
+
+    //     std::cout << "------------------------------------------" << std::endl;
+    //     delete gangme;   // double free...
+    // }
 
     return 0;
 }
+
+// static void _leak_check(void)
+// {
+//     system("leaks Brain");
+// }

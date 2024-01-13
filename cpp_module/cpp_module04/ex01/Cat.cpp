@@ -32,7 +32,7 @@ Cat& Cat::operator=(const Cat& origin)
 /* OCCF: destructor */
 Cat::~Cat()
 {
-    delete this->_catBrain;
+    delete this->_catBrain; this->_catBrain = NULL;
     std::cout << "🐱 [Cat]: destructor" << std::endl;
 }
 

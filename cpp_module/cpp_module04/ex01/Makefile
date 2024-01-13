@@ -1,4 +1,4 @@
-NAME		= Animal
+NAME		= Brain
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -27,15 +27,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ Animal ]	Ready to use Animal" $(RESET)
+	@echo $(GREEN) "⚡︎	[ Brain ]	Ready to use Brain" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ Animal ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ Brain ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ Animal ]	Removed Animal" $(RESET)
+	@echo $(GREEN) "⚡︎	[ Brain ]	Removed Brain" $(RESET)
 
 re		:
 	@$(MAKE) fclean
