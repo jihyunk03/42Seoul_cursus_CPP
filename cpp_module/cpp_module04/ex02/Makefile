@@ -1,4 +1,4 @@
-NAME		= Brain
+NAME		= AbstractClass
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -27,15 +27,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ Brain ]	Ready to use Brain" $(RESET)
+	@echo $(GREEN) "⚡︎	[ AbstractClass ]	Ready to use AbstractClass" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ Brain ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ AbstractClass ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ Brain ]	Removed Brain" $(RESET)
+	@echo $(GREEN) "⚡︎	[ AbstractClass ]	Removed AbstractClass" $(RESET)
 
 re		:
 	@$(MAKE) fclean

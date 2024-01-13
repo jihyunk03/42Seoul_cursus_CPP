@@ -1,4 +1,4 @@
-NAME		= Brain
+NAME		= DeepCopy
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -27,15 +27,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ Brain ]	Ready to use Brain" $(RESET)
+	@echo $(GREEN) "⚡︎	[ DeepCopy ]	Ready to use DeepCopy" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ Brain ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ DeepCopy ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ Brain ]	Removed Brain" $(RESET)
+	@echo $(GREEN) "⚡︎	[ DeepCopy ]	Removed DeepCopy" $(RESET)
 
 re		:
 	@$(MAKE) fclean
