@@ -2,10 +2,14 @@
 # define WRONGCAT_HPP
 
 # include "./WrongAnimal.hpp"
+# include "./Brain.hpp"
 
 class WrongCat
     : public WrongAnimal
 {
+    private:
+        Brain*  _wrongCatBrain;
+
     public:
         /* OCCF */
         WrongCat();
@@ -15,6 +19,7 @@ class WrongCat
 
         /* member functions */
         void    makeSound(void) const;
+        Brain*  getBrain(void) const;
 };
 
 #endif
