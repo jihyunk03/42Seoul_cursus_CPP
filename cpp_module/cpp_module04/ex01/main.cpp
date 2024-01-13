@@ -24,7 +24,7 @@ int main(void)
         for (int i = 0; i < N; i++)
         {
             std::cout << "--animals[" << i << "]--" << std::endl;
-            std::cout << "🍄 animal type is " << animals[i]->getType() << "and it'll be destroied" << std::endl;
+            std::cout << "🍄 animal type is " << animals[i]->getType() << " and it'll be destroied" << std::endl;
             animals[i]->makeSound();
             delete animals[i];
         }
@@ -66,7 +66,7 @@ int main(void)
     //     for (int i = 0; i < N; i++)
     //     {
     //         std::cout << "--wrongAnimals[" << i << "]--" << std::endl;
-    //         std::cout << "❌ wrongAnimal type is " << wrongAnimals[i]->getType() << "and it'll be destroied" << std::endl;
+    //         std::cout << "❌ wrongAnimal type is " << wrongAnimals[i]->getType() << " and it'll be destroied" << std::endl;
     //         wrongAnimals[i]->makeSound();
     //         delete wrongAnimals[i];
     //     }
