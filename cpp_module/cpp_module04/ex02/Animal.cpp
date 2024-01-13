@@ -40,8 +40,3 @@ const std::string& Animal::getType(void) const
 {
     return this->_type;
 }
-
-void    Animal::makeSound(void) const
-{
-    std::cout << "🐶🐱🐰🐬🐷🐵" << std::endl;
-}
