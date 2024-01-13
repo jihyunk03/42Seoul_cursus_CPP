@@ -1,8 +1,11 @@
 #include "./MateriaSource.hpp"
 #include "./Character.hpp"
 
+static void _check_leaks(void);
+
 int main(void)
 {
+    atexit(_check_leaks);
     IMateriaSource* book = new MateriaSource();
     book->learnMateria(new Ice());
     book->learnMateria(new Cure());
@@ -28,4 +31,9 @@ int main(void)
     delete book; book = NULL;
 
     return 0;
+}
+
+static void _check_leaks(void)
+{
+    system("leaks Materias");
 }
