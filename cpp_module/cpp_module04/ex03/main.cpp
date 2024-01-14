@@ -1,8 +1,11 @@
 #include "./MateriaSource.hpp"
 #include "./Character.hpp"
 
+// static void _check_leaks(void);
+
 int main(void)
 {
+    // atexit(_check_leaks);
     std::cout << "================test1================" << std::endl;
     {
         IMateriaSource* book = new MateriaSource();
@@ -36,11 +39,11 @@ int main(void)
         IMateriaSource* book = new MateriaSource();
         book->learnMateria(new Ice());
 
-        // book->learnMateria(new Ice());
+        book->learnMateria(new Ice());
 
-        // book->learnMateria(new Ice());
-        // book->learnMateria(new Cure());
-        // book->learnMateria(new Ice());
+        book->learnMateria(new Ice());
+        book->learnMateria(new Cure());
+        book->learnMateria(new Ice());
 
 
 
@@ -82,3 +85,8 @@ int main(void)
 
     return 0;
 }
+
+// static void _check_leaks(void)
+// {
+//     system("leaks Materia");
+// }
