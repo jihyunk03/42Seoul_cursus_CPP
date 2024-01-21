@@ -38,31 +38,31 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin)
 }
 
 /* OCCF: destructor */
-Bureaucrat::~Bureaucrat() _NOEXCEPT
+Bureaucrat::~Bureaucrat()
 {
-    std::cout << "[Bureaucrat]: destructor" << std::endl;
+    std::cout << "[Bureaucrat]: destructor(" << this->_name << ")" << std::endl;
 }
 
 
 /* member functions */
-const std::string& Bureaucrat::getName(void)
+const std::string& Bureaucrat::getName(void) const
 {
     return this->_name;
 }
 
-int Bureaucrat::getGrade(void)
+int Bureaucrat::getGrade(void) const
 {
     return this->_grade;
 }
 
-void Bureaucrat::increseGrade(void)
+void Bureaucrat::increaseGrade(void)
 {
     if (this->_grade - 1 < 1)
         throw Bureaucrat::GradeTooHighException();
     this->_grade--;
 }
 
-void Bureaucrat::decreseGrade(void)
+void Bureaucrat::decreaseGrade(void)
 {
     if (this->_grade + 1 > 150)
         throw Bureaucrat::GradeTooLowException();
@@ -70,7 +70,7 @@ void Bureaucrat::decreseGrade(void)
 }
 
 
-/* inner-class for exceptions */
+/* inner-class for exceptions: class-member functions overriding */
 const char* Bureaucrat::GradeTooHighException::what(void) const throw()
 {
     return "(↑↑↑) grade is too high";
@@ -79,4 +79,12 @@ const char* Bureaucrat::GradeTooHighException::what(void) const throw()
 const char* Bureaucrat::GradeTooLowException::what(void) const throw()
 {
     return "(↓↓↓) grade is too low";
+}
+
+
+/* ostream: operator overloading */
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& print)
+{
+    out << "👩‍⚖️ name(" << print.getName() << ")'s grade is " << print.getGrade() << "👩‍⚖️" << std::endl;
+    return out;
 }

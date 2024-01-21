@@ -4,7 +4,6 @@
 # include <iostream>
 
 class Bureaucrat
-    : public std::exception
 {
     private:
         const std::string   _name;
@@ -19,10 +18,10 @@ class Bureaucrat
         ~Bureaucrat();
 
         /* member functions */
-        const std::string&  getName(void);
-        int                 getGrade(void);
-        void                increseGrade(void);
-        void                decreseGrade(void);
+        const std::string&  getName(void) const;
+        int                 getGrade(void) const;
+        void                increaseGrade(void);
+        void                decreaseGrade(void);
 
         /* inner-class for exceptions */
         class GradeTooHighException
@@ -38,5 +37,7 @@ class Bureaucrat
                 virtual const char* what(void) const throw();
         };
 };
+
+std::ostream& operator<<(std::ostream& out, const Bureaucrat& print);
 
 #endif
