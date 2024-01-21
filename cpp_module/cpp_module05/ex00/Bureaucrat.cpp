@@ -10,7 +10,11 @@ Bureaucrat::Bureaucrat()
 Bureaucrat::Bureaucrat(const std::string& name, int grade)
     : _name(name)
 {
-    // check grade and throw the exceptions
+    if (grade < 1)
+        throw Bureaucrat::GradeTooHighException();
+    else if (grade > 150)
+        throw Bureaucrat::GradeTooLowException();
+    this->_grade = grade;
     std::cout << "[Bureaucrat]: name & grade initialize constructor" << std::endl;
 }
 
@@ -34,7 +38,7 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& origin)
 }
 
 /* OCCF: destructor */
-Bureaucrat::~Bureaucrat()
+Bureaucrat::~Bureaucrat() _NOEXCEPT
 {
     std::cout << "[Bureaucrat]: destructor" << std::endl;
 }
@@ -51,7 +55,19 @@ int Bureaucrat::getGrade(void)
     return this->_grade;
 }
 
-void
+void Bureaucrat::increseGrade(void)
+{
+    if (this->_grade - 1 < 1)
+        throw Bureaucrat::GradeTooHighException();
+    this->_grade--;
+}
+
+void Bureaucrat::decreseGrade(void)
+{
+    if (this->_grade + 1 > 150)
+        throw Bureaucrat::GradeTooLowException();
+    this->_grade++;
+}
 
 
 /* inner-class for exceptions */

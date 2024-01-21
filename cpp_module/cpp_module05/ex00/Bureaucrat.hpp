@@ -21,8 +21,8 @@ class Bureaucrat
         /* member functions */
         const std::string&  getName(void);
         int                 getGrade(void);
-        void                incrementGrade(void);
-        void                decrementGrade(void);
+        void                increseGrade(void);
+        void                decreseGrade(void);
 
         /* inner-class for exceptions */
         class GradeTooHighException
