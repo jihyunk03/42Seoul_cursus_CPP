@@ -111,6 +111,11 @@ const char* AForm::AFormAlreadySignedException::what(void) const throw()
     return "already signed!!";
 }
 
+const char* AForm::AFormNeedSignedException::what(void) const throw()
+{
+    return "must be signed!!";
+}
+
 
 /* ostream: operator overloading */
 std::ostream& operator<<(std::ostream& out, const AForm& print)
