@@ -71,7 +71,7 @@ int Form::getExecuteGrade(void) const
 void Form::beSigned(const Bureaucrat& bureaucrat)
 {
     int bur_grade = bureaucrat.getGrade();
-    if (bur_grade < this->_signGrade)
+    if (bur_grade > this->_signGrade)
         throw Form::GradeTooLowException();
     if (this->_signed == true)
         throw Form::FormAlreadySignedException();
