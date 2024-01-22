@@ -5,13 +5,13 @@ int main(void)
     try
     {
         Bureaucrat  jihyun("Jihyun", 1);
-        std::cout << jihyun;
+        std::cout << jihyun << std::endl;
 
         // Bureaucrat  sohyun("Sohyun", 0);
         // std::cout << sohyun;
 
         Bureaucrat  gangme("Gangme", 150);
-        std::cout << gangme;
+        std::cout << gangme << std::endl;
 
         // Bureaucrat  gggg("Gggg", 180);
         // std::cout << gggg;
@@ -23,15 +23,14 @@ int main(void)
 
         std::cout << "jihyun -> downgrade, gangme -> upgrade" << std::endl;
         jihyun.decreaseGrade();
-        std::cout << jihyun;
+        std::cout << jihyun << std::endl;
         gangme.increaseGrade();
-        std::cout << gangme;
+        std::cout << gangme << std::endl;
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << '\n';
+        std::cerr << e.what() << std::endl;
     }
-
 
     return 0;
 }
