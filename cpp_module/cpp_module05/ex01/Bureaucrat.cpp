@@ -1,4 +1,5 @@
 #include "./Bureaucrat.hpp"
+#include "./Form.hpp"
 
 /* OCCF: constructor */
 Bureaucrat::Bureaucrat()
@@ -69,22 +70,35 @@ void Bureaucrat::decreaseGrade(void)
     this->_grade++;
 }
 
+void Bureaucrat::signForm(Form& form)
+{
+    try
+    {
+        form.beSigned(*this);
+        std::cout << "👤 " << this->_name << " signed " << form.getName() << std::endl;
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "👤 " << this->_name << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
+    }
+}
+
 
 /* inner-class for exceptions: class-member functions overriding */
 const char* Bureaucrat::GradeTooHighException::what(void) const throw()
 {
-    return "(↑↑↑) grade is too high";
+    return "grade is too high (↑↑↑)";
 }
 
 const char* Bureaucrat::GradeTooLowException::what(void) const throw()
 {
-    return "(↓↓↓) grade is too low";
+    return "grade is too low (↓↓↓)";
 }
 
 
 /* ostream: operator overloading */
 std::ostream& operator<<(std::ostream& out, const Bureaucrat& print)
 {
-    out << "👩‍⚖️ name(" << print.getName() << ")'s grade is " << print.getGrade() << "👩‍⚖️" << std::endl;
+    out << "👤 name(" << print.getName() << ")'s grade is " << print.getGrade();
     return out;
 }

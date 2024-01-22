@@ -1,12 +1,14 @@
-NAME		= Bureaucrat
+NAME		= Form
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 RM			= rm -f
 
 SRCS		= main.cpp \
-			  Bureaucrat.cpp
-INCS		= Bureaucrat.hpp
+			  Bureaucrat.cpp \
+			  Form.cpp
+INCS		= Bureaucrat.hpp \
+			  Form.hpp
 OBJS		= $(SRCS:.cpp=.o)
 
 
@@ -17,15 +19,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ Bureaucrat ]	Ready to use Bureaucrat" $(RESET)
+	@echo $(GREEN) "⚡︎	[ Form ]	Ready to use Form" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ Bureaucrat ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ Form ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ Bureaucrat ]	Removed Bureaucrat" $(RESET)
+	@echo $(GREEN) "⚡︎	[ Form ]	Removed Form" $(RESET)
 
 re		:
 	@$(MAKE) fclean

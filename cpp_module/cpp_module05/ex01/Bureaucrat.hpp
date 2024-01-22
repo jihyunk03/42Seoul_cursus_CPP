@@ -3,6 +3,8 @@
 
 # include <iostream>
 
+class Form;
+
 class Bureaucrat
 {
     private:
@@ -22,6 +24,7 @@ class Bureaucrat
         int                 getGrade(void) const;
         void                increaseGrade(void);
         void                decreaseGrade(void);
+        void                signForm(Form& form);
 
         /* inner-class for exceptions */
         class GradeTooHighException
