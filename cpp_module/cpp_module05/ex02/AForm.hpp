@@ -19,14 +19,25 @@ class AForm
         AForm(const std::string name, const int signGrade, const int executeGrade);
         AForm(const AForm& origin);
         AForm& operator=(const AForm& origin);
-        ~AForm();
+        virtual ~AForm();
 
         /* member functions */
         const std::string&  getName(void) const;
+        void                setName(const std::string name);
+
         bool                getSigned(void) const;
+        void                setSigned(bool isSigned);
+
         int                 getSignGrade(void) const;
+        void                setSignGrade(int signGrade);
+
         int                 getExecuteGrade(void) const;
+        void                setExecuteGrade(int executeGrade);
+
         void                beSigned(const Bureaucrat& sign);
+
+        /* pure-virtual functions */
+        virtual void        execute(const Bureaucrat& executor) const = 0;
 
         /* inner-class for exceptions */
         class GradeTooHighException

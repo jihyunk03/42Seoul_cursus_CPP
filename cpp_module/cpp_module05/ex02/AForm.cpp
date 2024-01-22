@@ -52,20 +52,36 @@ const std::string& AForm::getName(void) const
 {
     return this->_name;
 }
+void AForm::setName(const std::string name)
+{
+    const_cast<std::string&>(this->_name) = name;
+}
 
 bool AForm::getSigned(void) const
 {
     return this->_signed;
+}
+void AForm::setSigned(bool isSigned)
+{
+    this->_signed = isSigned;
 }
 
 int AForm::getSignGrade(void) const
 {
     return this->_signGrade;
 }
+void AForm::setSignGrade(int signGrade)
+{
+    const_cast<int&>(this->_signGrade) = signGrade;
+}
 
 int AForm::getExecuteGrade(void) const
 {
     return this->_executeGrade;
+}
+void AForm::setExecuteGrade(int executeGrade)
+{
+    const_cast<int&>(this->_executeGrade) = executeGrade;
 }
 
 void AForm::beSigned(const Bureaucrat& bureaucrat)
