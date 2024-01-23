@@ -1,49 +1,58 @@
 #include "./Bureaucrat.hpp"
-#include "./AForm.hpp"
-#include "./ShrubberyCreationForm.hpp"
-#include "./RobotomyRequestForm.hpp"
-#include "./PresidentialPardonForm.hpp"
+#include "./Intern.hpp"
 
 static void _newSingleLine(void);
 static void _newDoubleLine(void);
 
 int main(void)
 {
+    std::string formName, targetName;
+    Bureaucrat  evaluator("Evaluator", 1);
     try
     {
-        Bureaucrat  jihyun("Jihyun", 1);
-        Bureaucrat  sohyun("sohyun", 50);
-        AForm*      shrubbery = new ShrubberyCreationForm("shrushru");
-        AForm*      roboto = new RobotomyRequestForm("roborobo");
-        AForm*      presidential = new PresidentialPardonForm("presidential");
         _newSingleLine();
-
-        jihyun.executeForm(*shrubbery);
-        _newSingleLine();
-
-        jihyun.signAform(*shrubbery);
-        sohyun.signAform(*roboto);
-        sohyun.signAform(*presidential);
-        jihyun.signAform(*presidential);
+        Intern someRandomIntern;
         _newDoubleLine();
 
-        jihyun.executeForm(*shrubbery);
-        jihyun.executeForm(*roboto);
-        jihyun.executeForm(*presidential);
-        _newDoubleLine();
+        /* ex1) */
+        formName = "ShrubberyCreation";
+        targetName = "cpp05";
+        AForm* form = someRandomIntern.makeForm(formName, targetName);
+        std::cout << std::endl;
 
-        sohyun.executeForm(*shrubbery);
-        sohyun.executeForm(*roboto);
-        sohyun.executeForm(*presidential);
-        _newDoubleLine();
+        evaluator.signAform(*form);
+        evaluator.executeForm(*form);
+        std::cout << std::endl;
 
-        delete shrubbery;
-        delete roboto;
-        delete presidential;
+        delete form;
+
+        /* ex2) */
+        // while (true)
+        // {
+        //     _newSingleLine();
+        //     std::cout << "[write form-name] (ShrubberyCreation), (RobotomyRequest), (PresidentialPardon): ";
+        //     std::cin >> formName;
+        //     std::cout << std::endl;
+
+        //     std::cout << "[write target-name]: ";
+        //     std::cin >> targetName;
+        //     std::cout << std::endl;
+
+        //     AForm* form = someRandomIntern.makeForm(formName, targetName);
+
+        //     evaluator.signAform(*form);
+        //     evaluator.executeForm(*form);
+        //     std::cout << std::endl;
+
+        //     delete form;
+        //     std::cout << std::endl;
+        // }
+
+        _newDoubleLine();
     }
     catch(const std::exception& e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "🤦 '" << formName << "' " << e.what() << std::endl;
     }
 
     return 0;

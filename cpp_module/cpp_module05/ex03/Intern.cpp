@@ -12,13 +12,16 @@ Intern::Intern()
 /* OCCF: copy constructor */
 Intern::Intern(const Intern& origin)
 {
+    (void) origin;
     std::cout << "[Intern]: copy constructor" << std::endl;
 }
 
 /* OCCF: copy assignment operator overloading */
 Intern& Intern::operator=(const Intern& origin)
 {
+    (void) origin;
     std::cout << "[Intern]: copy assignment operator overloading" << std::endl;
+    return *this;
 }
 
 /* OCCF: destructor */
@@ -37,21 +40,17 @@ AForm* Intern::makeForm(const std::string& formName, const std::string& targetNa
     std::string form_type[] = {"ShrubberyCreation", "RobotomyRequest", "PresidentialPardon"};
     AForm*      resForm = NULL;
 
-    try
+    for (int index = 0; index < 3; index++)
     {
-        for (int index = 0; index < 3; index++)
-            if (formName == form_type[index])
-                resForm = (this->*func_arr[index])(targetName);
-        if (resForm == NULL)
-            throw Intern::AFormNameIsWrongException();
-        std::cout << "🙆 Intern creates " << formName << "(" << targetName << ")" << std::endl;
-        return resForm;
+        if (formName == form_type[index])
+        {
+            resForm = (this->*func_arr[index])(targetName);
+            std::cout << "🙆 Intern creates " << formName << "(" << targetName << ")" << std::endl;
+            return resForm;
+        }
     }
-    catch(const std::exception& e)
-    {
-        std::cerr << "🤦 '" << formName << "' " << e.what() << std::endl;
-        return resForm;
-    }
+    throw Intern::AFormNameIsWrongException();
+    return NULL;
 }
 
 AForm* Intern::_makeShrubberyForm(const std::string& name)
