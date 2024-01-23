@@ -1,6 +1,8 @@
 #include "./ShrubberyCreationForm.hpp"
 #include "./Bureaucrat.hpp"
 
+#include <fstream>
+
 /* OCCF: constructor */
 ShrubberyCreationForm::ShrubberyCreationForm()
     : AForm("SH_default", SC_SIGN, SC_EXCE)
@@ -55,6 +57,12 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const
 
     ofs.open((this->getName() + "_shrubbery").c_str());
     if (ofs.is_open() == false)
-        std::cout << "Fail to open file" << std::endl;      // file open에 대한 내장된 exception 없나..?
+    {
+        std::cout << "❌ Failed to create file" << std::endl;      // file open에 대한 내장된 exception이 있으나 처리 방법은 여러가지니까...
+        return ;
+    }
+
     ofs << ASCII_TREE;
+    ofs.close();
+    std::cout << "🌳 Successfully creating file" << std::endl;
 }
