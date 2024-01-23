@@ -1,5 +1,8 @@
 #include "./Bureaucrat.hpp"
-#include "./Form.hpp"
+#include "./AForm.hpp"
+#include "./ShrubberyCreationForm.hpp"
+#include "./RobotomyRequestForm.hpp"
+#include "./PresidentialPardonForm.hpp"
 
 static void _newSingleLine(void);
 static void _newDoubleLine(void);
@@ -8,34 +11,35 @@ int main(void)
 {
     try
     {
-        Bureaucrat  jihyun("Jihyun", 130);
-        Bureaucrat  evaluator00("Evaluator00", 2);
-        Bureaucrat  evaluator01("Evaluator01", 2);
+        Bureaucrat  jihyun("Jihyun", 1);
+        Bureaucrat  sohyun("sohyun", 50);
+        AForm*      shrubbery = new ShrubberyCreationForm("shrushru");
+        AForm*      roboto = new RobotomyRequestForm("roborobo");
+        AForm*      presidential = new PresidentialPardonForm("presidential");
         _newSingleLine();
 
-        std::cout << jihyun << std::endl;
-        std::cout << evaluator00 << std::endl;
-        std::cout << evaluator01 << std::endl;
+        jihyun.executeForm(*shrubbery);
         _newSingleLine();
 
-        Form        cpp05("CPP05", 2, 150);
-        Form        cpp06("CPP06", 1, 1);
-        _newSingleLine();
-
-        std::cout << cpp05 << std::endl;
-        std::cout << cpp06 << std::endl;
-        _newSingleLine();
-
+        jihyun.signAform(*shrubbery);
+        sohyun.signAform(*roboto);
+        sohyun.signAform(*presidential);
+        jihyun.signAform(*presidential);
         _newDoubleLine();
-        jihyun.signForm(cpp05);
-        evaluator00.signForm(cpp05);
-        evaluator01.signForm(cpp05);
-        _newSingleLine();
 
-        jihyun.signForm(cpp06);
-        evaluator00.signForm(cpp06);
-        evaluator01.signForm(cpp06);
+        jihyun.executeForm(*shrubbery);
+        jihyun.executeForm(*roboto);
+        jihyun.executeForm(*presidential);
         _newDoubleLine();
+
+        sohyun.executeForm(*shrubbery);
+        sohyun.executeForm(*roboto);
+        sohyun.executeForm(*presidential);
+        _newDoubleLine();
+
+        delete shrubbery;
+        delete roboto;
+        delete presidential;
     }
     catch(const std::exception& e)
     {
