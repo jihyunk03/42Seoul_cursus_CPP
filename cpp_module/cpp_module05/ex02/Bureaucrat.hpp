@@ -3,7 +3,7 @@
 
 # include <iostream>
 
-class Aform;
+class AForm;
 
 class Bureaucrat
 {
@@ -24,7 +24,8 @@ class Bureaucrat
         int                 getGrade(void) const;
         void                increaseGrade(void);
         void                decreaseGrade(void);
-        void                signAform(AForm& aform);
+        void                signAform(AForm& form);
+        void                executeForm(const AForm& form);
 
         /* inner-class for exceptions */
         class GradeTooHighException
