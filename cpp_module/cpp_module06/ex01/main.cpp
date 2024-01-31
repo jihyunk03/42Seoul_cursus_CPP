@@ -14,13 +14,15 @@ int main(void)
 
     dataPtr = Serializer::serialize(&dataA);
     dataRaw = Serializer::deserialize(dataPtr);
-    std::cout << "dataA:   address(" << &dataA << ")num(" << dataA.num << "), str(" << dataA.str << ")" << std::endl;
-    std::cout << "dataRaw: num(" << dataRaw->num << "), str(" << dataRaw->str << ")" << std::endl;
+    std::cout << "dataA:   address(" << &dataA << "), num(" << dataA.num << "), str(" << dataA.str << ")" << std::endl;
+    std::cout << "dataRaw: address(" << dataRaw << "), num(" << dataRaw->num << "), str(" << dataRaw->str << ")" << std::endl;
+
+    std::cout << "-------------------------------------------------------" << std::endl;
 
     dataPtr = Serializer::serialize(&dataB);
     dataRaw = Serializer::deserialize(dataPtr);
-    std::cout << "dataB:   num(" << dataB.num << "), str(" << dataB.str << ")" << std::endl;
-    std::cout << "dataRaw: num(" << dataRaw->num << "), str(" << dataRaw->str << ")" << std::endl;
+    std::cout << "dataB:   address(" << &dataB << "), num(" << dataB.num << "), str(" << dataB.str << ")" << std::endl;
+    std::cout << "dataRaw: address(" << dataRaw << "), num(" << dataRaw->num << "), str(" << dataRaw->str << ")" << std::endl;
 
     return 0;
 }
