@@ -1,4 +1,4 @@
-NAME		= Serializer
+NAME		= reinterpretCast
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -18,15 +18,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ Serializer ]	Ready to use Serializer" $(RESET)
+	@echo $(GREEN) "⚡︎	[ reinterpretCast ]	Ready to use reinterpretCast" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ Serializer ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ reinterpretCast ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ Serializer ]	Removed Serializer" $(RESET)
+	@echo $(GREEN) "⚡︎	[ reinterpretCast ]	Removed reinterpretCast" $(RESET)
 
 re		:
 	@$(MAKE) fclean

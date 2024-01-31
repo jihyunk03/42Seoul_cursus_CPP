@@ -1,4 +1,4 @@
-NAME		= ScalarConverter
+NAME		= staticCast
 
 CXX			= c++
 CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
@@ -17,15 +17,15 @@ all		: $(NAME)
 
 $(NAME)	: $(OBJS) $(INCS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
-	@echo $(GREEN) "⚡︎	[ ScalarConverter ]	Ready to use ScalarConverter" $(RESET)
+	@echo $(GREEN) "⚡︎	[ staticCast ]	Ready to use staticCast" $(RESET)
 
 clean	:
 	@$(RM) $(OBJS)
-	@echo $(GREEN) "⚡︎	[ ScalarConverter ]	Removed Object files" $(RESET)
+	@echo $(GREEN) "⚡︎	[ staticCast ]	Removed Object files" $(RESET)
 
 fclean	: clean
 	@$(RM) $(NAME)
-	@echo $(GREEN) "⚡︎	[ ScalarConverter ]	Removed ScalarConverter" $(RESET)
+	@echo $(GREEN) "⚡︎	[ staticCast ]	Removed staticCast" $(RESET)
 
 re		:
 	@$(MAKE) fclean
