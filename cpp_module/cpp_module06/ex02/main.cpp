@@ -5,7 +5,7 @@
 #include "./B.hpp"
 #include "./C.hpp"
 
-#define COUNT   5
+#define COUNT   10
 
 static Base*    generate(void);
 static void     identify(Base* ptr);
@@ -16,7 +16,7 @@ int main(void)
     srand(time(NULL));
     for (int i = 0; i < COUNT; i++)
     {
-        std::cout << "------[" << i << "]------" << std::endl;
+        std::cout << "------[" << i + 1 << "]------" << std::endl;
         Base    *base = generate();
 
         identify(base);
@@ -37,10 +37,10 @@ static Base*    generate(void)
             std::cout << "Ⓐ constructor of A called" << std::endl;
             return new A;
         case 1:
-            std::cout << "Ⓑ constructor of A called" << std::endl;
+            std::cout << "Ⓑ constructor of B called" << std::endl;
             return new B;
         case 2:
-            std::cout << "Ⓒ constructor of A called" << std::endl;
+            std::cout << "Ⓒ constructor of C called" << std::endl;
             return new C;
         default:
             return NULL;
