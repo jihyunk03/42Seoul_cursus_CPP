@@ -56,6 +56,18 @@ int main(void)
         std::cout << "Maximum value: " << ::max(a, b) << std::endl;
     }
 
+    std::cout << std::endl;
+
+    {
+        std::cout << "========[Test 5]========" << std::endl;
+        const int   a = 1;
+        const int   b = 2;
+
+        _printValue(a, b);
+        std::cout << "Minimum value: " << ::min(a, b) << std::endl;
+        std::cout << "Maximum value: " << ::max(a, b) << std::endl;
+    }
+
     return 0;
 }
 
