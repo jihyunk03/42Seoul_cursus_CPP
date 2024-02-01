@@ -49,8 +49,12 @@ class Array
                 throw std::exception();
             return this->_array[index];
         }
-
-        // const 구현해라
+        // const Type&     operator[](unsigned int index) const
+        // {
+        //     if (index < 0 || index >= this->_arraySize)
+        //         throw std::exception();
+        //     return this->_array[index];
+        // }
         unsigned int    size() const
         {
             return this->_arraySize;
