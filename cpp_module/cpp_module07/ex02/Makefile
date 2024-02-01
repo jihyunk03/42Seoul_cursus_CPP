@@ -5,7 +5,7 @@ CXXFLAGS	= -Wall -Wextra -Werror -std=c++98
 RM			= rm -f
 
 SRCS		= main.cpp
-INCS		= Array.hpp #Array.tpp
+INCS		= Array.hpp
 OBJS		= $(SRCS:.cpp=.o)
 
 
