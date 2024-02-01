@@ -1,7 +1,7 @@
 // #include "./Array.hpp"
 
 // template<typename Type>
-// Array::Array()
+// Array<Type>::Array()
 // {
 // }
 

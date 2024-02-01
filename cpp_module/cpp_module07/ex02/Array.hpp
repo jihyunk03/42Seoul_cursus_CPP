@@ -43,12 +43,14 @@ class Array
         }
 
         /* member functions */
-        Type&           operator[](unsigned int index)
+        Type&           operator[](unsigned int index) const
         {
             if (index < 0 || index >= this->_arraySize)
                 throw std::exception();
             return this->_array[index];
         }
+
+        // const 구현해라
         unsigned int    size() const
         {
             return this->_arraySize;
