@@ -4,99 +4,144 @@
 #include <limits>
 #include <cmath>
 
-/* static member variable */
-double ScalarConverter::_dLiteral = 0;
+/* for print */
+static void     _printChar(double dLiteral, bool errFlag);
+static void     _printInt(double dLiteral, bool errFlag);
+static void     _printFloat(double dLiteral, bool errFlag, const std::string& value, bool isFloat);
+static void     _printDouble(double dLiteral, bool errFlag);
+/* for check */
+static bool     _isNan(const std::string& value);
+static size_t   _setprecision(const std::string& value, bool isFloat);
+static bool     _checkValid(char* pos, bool& isFloat);
 
 /* static member functions */
 void ScalarConverter::convert(const std::string& value)
 {
-    char *pos = NULL;
+    double  dLiteral;
+    char    *pos = NULL;
+    bool    errFlag = false;
+    bool    isFloat = false;
 
-    // std::cout << std::fixed << std::setprecision(1);
     if (value.length() == 1)
-        ScalarConverter::_dLiteral = static_cast<double>(value[0]);
+        dLiteral = static_cast<double>(value[0]);
     else
-        ScalarConverter::_dLiteral = std::strtod(value.c_str(), &pos);
-    ScalarConverter::_reSetprecision(value, pos);
+    {
+        if (_isNan(value) == true)
+            return ;
+        dLiteral = std::strtod(value.c_str(), &pos);
+        if (errno == ERANGE)
+            errFlag = true;
+        if (_checkValid(pos, isFloat) == false)
+            errFlag = true;
+    }
 
-    ScalarConverter::_printChar();
-    ScalarConverter::_printInt();
-    ScalarConverter::_printFloat();
-    ScalarConverter::_printDouble();
-
-    ScalarConverter::_dLiteral = 0;  // initialize to 0 (origin) for next convert
+    _printChar(dLiteral, errFlag);
+    _printInt(dLiteral, errFlag);
+    _printFloat(dLiteral, errFlag, value, isFloat);
+    _printDouble(dLiteral, errFlag);
 }
 
-/* private & static member functions(only used in convert-func) */
-void ScalarConverter::_reSetprecision(const std::string& value, char* pos)
+/* static functions only for ScalarConverter::convert() */
+/* for print */
+static void _printChar(double dLiteral, bool errFlag)
 {
-    // if ()
-}
-
-void ScalarConverter::_printChar(void)
-{
-    char    convertChar = static_cast<char>(ScalarConverter::_dLiteral);
+    char    convertChar = static_cast<char>(dLiteral);
 
     std::cout << "char: ";
-    if (convertChar != convertChar)
+    if (errFlag == true)
         std::cout << "impossible" << std::endl;
-    else if (convertChar < std::numeric_limits<char>::min() || convertChar > std::numeric_limits<char>::max())
+    else if (dLiteral < std::numeric_limits<char>::min() || dLiteral > std::numeric_limits<char>::max())
         std::cout << "impossible" << std::endl;
     else if (std::isprint(convertChar) == 0)
         std::cout << "Non displayable" << std::endl;
     else
-        std::cout << convertChar << std::endl;
+        std::cout << "\'" << convertChar << "\'" << std::endl;
 }
 
-void ScalarConverter::_printInt(void)
+static void _printInt(double dLiteral, bool errFlag)
 {
-    int convertInt = static_cast<int>(ScalarConverter::_dLiteral);
+    int convertInt = static_cast<int>(dLiteral);
 
     std::cout << "int: ";
-    if (convertInt != convertInt)
+    if (errFlag == true)
         std::cout << "impossible" << std::endl;
-    else if (convertInt < std::numeric_limits<int>::min() || convertInt > std::numeric_limits<int>::max())
+    else if (dLiteral < std::numeric_limits<int>::min() || dLiteral > std::numeric_limits<int>::max())
         std::cout << "impossible" << std::endl;
     else
         std::cout << convertInt << std::endl;
 }
 
-void ScalarConverter::_printFloat(void)
+static void _printFloat(double dLiteral, bool errFlag, const std::string& value, bool isFloat)
 {
-    float convertFloat = static_cast<float>(ScalarConverter::_dLiteral);
+    float convertFloat = static_cast<float>(dLiteral);
 
     std::cout << "float: ";
-    if (convertFloat != convertFloat)
+    if (errFlag == true || convertFloat != convertFloat)
         std::cout << "impossible" << std::endl;
-    else if (std::isinf(convertFloat) == true)
-    {
-        if (std::signbit(convertFloat) == false)
-            std::cout << "inff" << std::endl;
-        else
-            std::cout << "-inff" << std::endl;
-    }
-    else if (std::isnan(convertFloat) == true)
-        std::cout << "nanf" << std::endl;
+    else if (dLiteral > std::numeric_limits<float>::max())
+        std::cout << "inff" << std::endl;
+    else if (dLiteral < -std::numeric_limits<float>::max())
+        std::cout << "-inff" << std::endl;
     else
-        std::cout << convertFloat << std::endl;
+    {
+        size_t setPre = _setprecision(value, isFloat);
+        if (setPre != 0)
+            std::cout << std::fixed << std::setprecision(setPre) << convertFloat << "f" << std::endl;
+        else
+            std::cout << std::fixed << convertFloat << "f" << std::endl;
+    }
 }
 
-void ScalarConverter::_printDouble(void)
+static void _printDouble(double dLiteral, bool errFlag)
 {
-    float convertDouble = static_cast<float>(ScalarConverter::_dLiteral);
+    double convertDouble = static_cast<double>(dLiteral);
 
     std::cout << "double: ";
-    if (convertDouble != convertDouble)
+    if (errFlag == true || convertDouble != convertDouble)
         std::cout << "impossible" << std::endl;
-    else if (std::isinf(convertDouble) == true)
-    {
-        if (std::signbit(convertDouble) == false)
-            std::cout << "inff" << std::endl;
-        else
-            std::cout << "-inff" << std::endl;
-    }
-    else if (std::isnan(convertDouble) == true)
-        std::cout << "nanf" << std::endl;
     else
         std::cout << convertDouble << std::endl;
 }
+
+/* for check */
+
+static bool _isNan(const std::string& value)
+{
+    if (value == "nan" || value == "nanf")
+    {
+        std::cout << "char: impossible" << std::endl;
+        std::cout << "int: impossible" << std::endl;
+        std::cout << "float: nanf" << std::endl;
+        std::cout << "double: nan" << std::endl;
+        return true;
+    }
+    return false;
+}
+
+static size_t _setprecision(const std::string& value, bool isFloat)
+{
+    size_t  strStart = value.find('.');
+    if (strStart == std::string::npos)
+        return 0;
+    size_t  remainLen = value.length() - 1 - strStart;
+    if (remainLen > 0 && isFloat == true)
+        remainLen--;
+    if (remainLen <= 1)
+        return 1;
+    return remainLen;
+}
+
+static bool _checkValid(char* pos, bool& isFloat)
+{
+    std::string remaining(pos);
+
+    if (remaining.empty() == true)
+        return true;
+    if (remaining[0] == 'f' && remaining[1] == '\0')
+    {
+        isFloat = true;
+        return true;
+    }
+    return false;
+}
+
