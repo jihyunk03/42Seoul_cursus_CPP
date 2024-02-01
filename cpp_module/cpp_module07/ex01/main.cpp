@@ -1,7 +1,7 @@
 #include "./iter.hpp"
 
 template<typename T>
-static void _printValue(T tvalue)
+void _printValue(const T& tvalue)
 {
     std::cout << tvalue << std::endl;
 }
@@ -9,7 +9,8 @@ static void _printValue(T tvalue)
 int main(void)
 {
     const size_t    arraySize = 5;
-    const int             arrInt[arraySize] = {1, 2, 3, 4, 5};
+
+    const int       arrInt[arraySize] = {1, 2, 3, 4, 5};
     double          arrDou[arraySize] = {111, 222, 333, 444, 555};
     char            arrCha[arraySize] = {'a', 'b', 'c', 'd', 'e'};
 

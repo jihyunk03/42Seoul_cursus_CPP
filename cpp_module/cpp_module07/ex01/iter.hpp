@@ -3,8 +3,8 @@
 
 # include <iostream>
 
-template<typename TArray>
-void iter(TArray* array, size_t arrSize, void (*func)(TArray))
+template<typename Type>
+void iter(Type* array, size_t arrSize, void (*func)(const Type&))
 {
     for (size_t i = 0; i < arrSize; i++)
         func(array[i]);
