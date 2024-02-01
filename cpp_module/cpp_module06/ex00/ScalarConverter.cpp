@@ -3,6 +3,8 @@
 #include <cctype>
 #include <limits>
 #include <cmath>
+#include <cstdlib>
+#include <cerrno>
 
 /* for print */
 static void     _printChar(double dLiteral, bool errFlag);
@@ -28,7 +30,7 @@ void ScalarConverter::convert(const std::string& value)
     {
         if (_isNan(value) == true)
             return ;
-        dLiteral = std::strtod(value.c_str(), &pos);
+        dLiteral = strtod(value.c_str(), &pos);
         if (errno == ERANGE)
             errFlag = true;
         if (_checkValid(pos, isFloat) == false)
@@ -88,7 +90,7 @@ static void _printFloat(double dLiteral, bool errFlag, const std::string& value,
         if (setPre != 0)
             std::cout << std::fixed << std::setprecision(setPre) << convertFloat << "f" << std::endl;
         else
-            std::cout << std::fixed << convertFloat << "f" << std::endl;
+            std::cout << std::fixed << std::setprecision(1) << convertFloat << "f" << std::endl;
     }
 }
 
