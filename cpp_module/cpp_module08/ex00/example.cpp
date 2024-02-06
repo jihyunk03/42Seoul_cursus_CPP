@@ -1,4 +1,6 @@
 #include <iostream>
+#include <vector>
+#include <stack>
 
 /**
  * Q) 내가 궁금했던 것: 함수의 매개변수로 const T&, T&, T의 차이?
@@ -14,11 +16,18 @@ T add(T a, T b) {
 }
 
 int main(void) {
-    int res = 0;
-    std::cout << add(1.0, 3.0) << std::endl;
+    {
+        int res = 0;
+        std::cout << add(1.0, 3.0) << std::endl;
 
-    // int a = 1, b = 3;
-    // res = add(a, b);
+        // int a = 1, b = 3;
+        // res = add(a, b);
+        std::cout << "results: " << res << std::endl;
+    }
 
-    std::cout << "results: " << res << std::endl;
+    {
+        std::vector<int> vec;
+        // a->b = d;
+        std::vector<int>::iterator it = vec.begin();
+    }
 }
