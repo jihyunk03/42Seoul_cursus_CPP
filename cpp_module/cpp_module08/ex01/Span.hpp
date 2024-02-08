@@ -5,7 +5,6 @@
 # include <vector>
 # include <cstdlib>
 # include <algorithm>
-// # include <exception>
 
 class Span
 {
@@ -26,9 +25,10 @@ class Span
 
         /* member functions */
         void    addNumber(int value);
-        void    addManyNumber(int size);
+        void    addManyNumber(size_t size);
         int     shortestSpan(void);
         int     longestSpan(void);
+        void    printNumber(void);
 };
 
 #endif

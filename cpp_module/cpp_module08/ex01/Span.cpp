@@ -40,7 +40,7 @@ void Span::addNumber(int value)
     this->_vec.push_back(value);
 }
 
-void Span::addManyNumber(int size)
+void Span::addManyNumber(size_t size)
 {
     if (this->_vec.size() + size > static_cast<size_t>(this->_maxSize))
         throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
@@ -51,16 +51,37 @@ void Span::addManyNumber(int size)
 
 int Span::shortestSpan(void)
 {
-    // size가 1이하면 throw(login_error)
+    if (this->_vec.size() <= 1)
+        throw std::logic_error("❌ cannot find shortest distance: Span size is too small");
     std::vector<int> temp;
     for (std::vector<int>::iterator it = this->_vec.begin(); it != this->_vec.end(); ++it)
         temp.push_back(*it);
     std::sort(temp.begin(), temp.end());
-    // int minimum = temp[1] - temp[0]; 로 시작해서 진행
-    // for (std::vector<int>::iterator it = temp.begin(); it != temp.end(); ++it)
-
+    int minimum = temp[1] - temp[0];
+    for (std::vector<int>::iterator it = temp.begin() + 1; it != temp.end(); ++it)
+    {
+        int dist = *it - *(it - 1);
+        if (dist < minimum)
+            minimum = dist;
+    }
+    return minimum;
 }
 
 int Span::longestSpan(void)
 {
+    if (this->_vec.size() <= 1)
+        throw std::logic_error("❌ cannot find longest distance: Span size is too small");
+
+    std::vector<int> temp;
+    for (std::vector<int>::iterator it = this->_vec.begin(); it != this->_vec.end(); ++it)
+        temp.push_back(*it);
+    std::sort(temp.begin(), temp.end());
+    return temp.back() - temp.front();
+}
+
+void Span::printNumber(void)
+{
+    for (std::vector<int>::iterator it = this->_vec.begin(); it != this->_vec.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << std::endl;
 }
