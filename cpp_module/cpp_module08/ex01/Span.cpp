@@ -9,7 +9,8 @@ Span::Span(unsigned int maxSize)
 Span::Span(const Span& origin)
     : _maxSize(origin._maxSize)
 {
-    for (std::vector<int>::const_iterator it = origin._vec.begin(); it != origin._vec.end(); ++it)
+    std::vector<int>::const_iterator it;
+    for (it = origin._vec.begin(); it != origin._vec.end(); ++it)
         this->_vec.push_back(*it);
 }
 
@@ -18,9 +19,11 @@ Span& Span::operator=(const Span& origin)
 {
     if (this != &origin)
         return *this;
+
     this->_maxSize = origin._maxSize;
     this->_vec.clear();
-    for (std::vector<int>::const_iterator it = origin._vec.begin(); it != origin._vec.end(); ++it)
+    std::vector<int>::const_iterator it;
+    for (it = origin._vec.begin(); it != origin._vec.end(); ++it)
         this->_vec.push_back(*it);
     return *this;
 }
@@ -37,43 +40,48 @@ void Span::addNumber(int value)
 {
     if (this->_vec.size() == static_cast<size_t>(this->_maxSize))
         throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
+
     this->_vec.push_back(value);
 }
 
-void Span::addManyNumber(size_t size)
+void Span::addManyRandNumber(unsigned int size)
 {
-    if (this->_vec.size() + size > static_cast<size_t>(this->_maxSize))
+    if (this->_vec.size() + static_cast<size_t>(size) > static_cast<size_t>(this->_maxSize))
         throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
+
     srand(time(NULL));
-    for (size_t s = 0; s < size; ++s)
+    for (unsigned int s = 0; s < size; ++s)
         this->_vec.push_back(rand() % 10000000);
 }
 
-int Span::shortestSpan(void)
+unsigned int Span::shortestSpan(void)
 {
     if (this->_vec.size() <= 1)
         throw std::logic_error("❌ cannot find shortest distance: Span size is too small");
-    std::vector<int> temp;
-    for (std::vector<int>::iterator it = this->_vec.begin(); it != this->_vec.end(); ++it)
+
+    std::vector<int>            temp;
+    std::vector<int>::iterator  it;
+    for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
         temp.push_back(*it);
     std::sort(temp.begin(), temp.end());
-    int minimum = temp[1] - temp[0];
-    for (std::vector<int>::iterator it = temp.begin() + 1; it != temp.end(); ++it)
+    unsigned int minimum = temp[1] - temp[0];
+    for (it = temp.begin() + 1; it != temp.end(); ++it)
     {
-        int dist = *it - *(it - 1);
+        unsigned int dist = *it - *(it - 1);
         if (dist < minimum)
             minimum = dist;
     }
     return minimum;
 }
 
-int Span::longestSpan(void)
+unsigned int Span::longestSpan(void)
 {
     if (this->_vec.size() <= 1)
         throw std::logic_error("❌ cannot find longest distance: Span size is too small");
 
-    std::vector<int> temp;
-    for (std::vector<int>::iterator it = this->_vec.begin(); it != this->_vec.end(); ++it)
+    std::vector<int>            temp;
+    std::vector<int>::iterator  it;
+    for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
         temp.push_back(*it);
     std::sort(temp.begin(), temp.end());
     return temp.back() - temp.front();
@@ -81,7 +89,10 @@ int Span::longestSpan(void)
 
 void Span::printNumber(void)
 {
-    for (std::vector<int>::iterator it = this->_vec.begin(); it != this->_vec.end(); ++it)
+    std::cout << "------------------------------------" << std::endl;
+    std::vector<int>::iterator it;
+    for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
         std::cout << *it << " ";
     std::cout << std::endl;
+    std::cout << "------------------------------------" << std::endl;
 }

@@ -6,6 +6,10 @@
 # include <cstdlib>
 # include <algorithm>
 
+/**
+ * size_t, unsigned int -> 혼란 해결하기, current size를 추가?
+*/
+
 class Span
 {
     private:
@@ -24,11 +28,11 @@ class Span
         ~Span();
 
         /* member functions */
-        void    addNumber(int value);
-        void    addManyNumber(size_t size);
-        int     shortestSpan(void);
-        int     longestSpan(void);
-        void    printNumber(void);
+        void            addNumber(int value);
+        void            addManyRandNumber(unsigned int size);     // size_t
+        unsigned int    shortestSpan(void);
+        unsigned int    longestSpan(void);
+        void            printNumber(void);
 };
 
 #endif
