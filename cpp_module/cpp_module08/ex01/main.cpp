@@ -2,6 +2,7 @@
 
 int main(void)
 {
+    std::cout << "===============[ex 1]===============" << std::endl;
     try
     {
         Span    example(5);
@@ -27,6 +28,27 @@ int main(void)
     {
         std::cerr << e.what() << std::endl;
     }
+
+    std::cout << "===============[ex 2]===============" << std::endl;
+    try
+    {
+        Span example(15000);
+
+        example.addManyRandNumber(10000);
+        // example.addManyRandNumber(10000);    // error
+
+        // example.printNumber();
+
+        std::cout << "shortest distance: " << example.shortestSpan() << std::endl;
+        std::cout << "longest distance: " << example.longestSpan() << std::endl;
+
+        // example.printNumber();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << std::endl;
+    }
+
 
     return 0;
 }
