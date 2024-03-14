@@ -79,12 +79,17 @@ unsigned int Span::longestSpan(void)
     if (this->_vec.size() <= 1)
         throw std::logic_error("❌ cannot find longest distance: Span size is too small");
 
-    std::vector<int>            temp;
-    std::vector<int>::iterator  it;
-    for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
-        temp.push_back(*it);
-    std::sort(temp.begin(), temp.end());
-    return temp.back() - temp.front();
+    // std::vector<int>            temp;
+    // std::vector<int>::iterator  it;
+    // for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
+    //     temp.push_back(*it);
+    // std::sort(temp.begin(), temp.end());
+    // return temp.back() - temp.front();
+
+    int maxElement = *(std::max_element(this->_vec.begin(), this->_vec.end()));
+    int minElement = *(std::min_element(this->_vec.begin(), this->_vec.end()));
+
+    return maxElement - minElement;
 }
 
 void Span::printNumber(void)
