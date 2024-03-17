@@ -8,6 +8,7 @@
 
 /**
  * size_t, unsigned int -> 혼란 해결하기, current size를 추가?
+ * range of iterators: 설마 resize?
 */
 
 class Span

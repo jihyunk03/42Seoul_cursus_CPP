@@ -41,6 +41,7 @@ void Span::addNumber(int value)
     if (this->_vec.size() == static_cast<size_t>(this->_maxSize))
         throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
 
+    // range of iterators: 설마 resize?
     this->_vec.push_back(value);
 }
 
@@ -49,6 +50,7 @@ void Span::addManyRandNumber(unsigned int size)
     if (this->_vec.size() + static_cast<size_t>(size) > static_cast<size_t>(this->_maxSize))
         throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
 
+    // range of iterators: 설마 resize?
     srand(time(NULL));
     for (unsigned int s = 0; s < size; ++s)
         this->_vec.push_back(rand() % 10000000);
