@@ -1,28 +1,29 @@
 #include "./Span.hpp"
+#include <cstdlib>
 
 int main(void)
 {
     std::cout << "===============[ex 1]===============" << std::endl;
     try
     {
-        Span    example(5);
+        Span    mySpan(5);
 
-        // std::cout << "shortest distance: " << example.shortestSpan() << std::endl;      // error
-        // std::cout << "longest distance: " << example.longestSpan() << std::endl;        // error
+        // std::cout << "shortest distance: " << mySpan.shortestSpan() << std::endl;      // error
+        // std::cout << "longest distance: " << mySpan.longestSpan() << std::endl;        // error
 
-        example.addNumber(5);
-        example.addNumber(10);
-        example.addNumber(2);
-        example.addNumber(100);
-        example.addNumber(80);
-        // example.addNumber(90);      // error
+        mySpan.addNumber(5);
+        mySpan.addNumber(10);
+        mySpan.addNumber(2);
+        mySpan.addNumber(100);
+        mySpan.addNumber(80);
+        // mySpan.addNumber(90);      // error
 
-        example.printNumber();
+        mySpan.printNumber();
 
-        std::cout << "shortest distance: " << example.shortestSpan() << std::endl;
-        std::cout << "longest distance: " << example.longestSpan() << std::endl;
+        std::cout << "shortest distance: " << mySpan.shortestSpan() << std::endl;
+        std::cout << "longest distance: " << mySpan.longestSpan() << std::endl;
 
-        example.printNumber();
+        mySpan.printNumber();
     }
     catch(const std::exception& e)
     {
@@ -32,23 +33,26 @@ int main(void)
     std::cout << "===============[ex 2]===============" << std::endl;
     try
     {
-        Span example(15000);
+        Span                mySpan(10000);
+        std::vector<int>    randVec;
 
-        example.addManyRandNumber(10000);
-        // example.addManyRandNumber(10000);    // error
+        srand(static_cast<unsigned int>(time(NULL)));
+        for (int i = 0; i < 10000; ++i)
+            randVec.push_back(rand() % 100000000);
 
-        // example.printNumber();
+        mySpan.addManyNumbers(randVec);
+        // mySpan.addNumber(1);                // error
+        // mySpan.addManyNumbers(randVec);      // error
 
-        std::cout << "shortest distance: " << example.shortestSpan() << std::endl;
-        std::cout << "longest distance: " << example.longestSpan() << std::endl;
+        std::cout << "shortest distance: " << mySpan.shortestSpan() << std::endl;
+        std::cout << "longest distance: " << mySpan.longestSpan() << std::endl;
 
-        // example.printNumber();
+        // mySpan.printNumber();
     }
     catch(const std::exception& e)
     {
         std::cerr << e.what() << std::endl;
     }
-
 
     return 0;
 }
