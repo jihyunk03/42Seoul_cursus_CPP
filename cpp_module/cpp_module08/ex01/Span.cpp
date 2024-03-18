@@ -39,21 +39,9 @@ Span::~Span()
 void Span::addNumber(int value)
 {
     if (this->_vec.size() == static_cast<size_t>(this->_maxSize))
-        throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
+        throw std::out_of_range("❌ cannot add number: out of range of this Span");
 
-    // range of iterators: 설마 resize?
     this->_vec.push_back(value);
-}
-
-void Span::addManyRandNumber(unsigned int size)
-{
-    if (this->_vec.size() + static_cast<size_t>(size) > static_cast<size_t>(this->_maxSize))
-        throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
-
-    // range of iterators: 설마 resize?
-    srand(time(NULL));
-    for (unsigned int s = 0; s < size; ++s)
-        this->_vec.push_back(rand() % 10000000);
 }
 
 unsigned int Span::shortestSpan(void)
@@ -61,12 +49,10 @@ unsigned int Span::shortestSpan(void)
     if (this->_vec.size() <= 1)
         throw std::logic_error("❌ cannot find shortest distance: Span size is too small");
 
-    std::vector<int>            temp;
-    std::vector<int>::iterator  it;
-    for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
-        temp.push_back(*it);
+    std::vector<int> temp(this->_vec);
     std::sort(temp.begin(), temp.end());
     unsigned int minimum = temp[1] - temp[0];
+    std::vector<int>::iterator  it;
     for (it = temp.begin() + 1; it != temp.end(); ++it)
     {
         unsigned int dist = *it - *(it - 1);
@@ -81,25 +67,17 @@ unsigned int Span::longestSpan(void)
     if (this->_vec.size() <= 1)
         throw std::logic_error("❌ cannot find longest distance: Span size is too small");
 
-    // std::vector<int>            temp;
-    // std::vector<int>::iterator  it;
-    // for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
-    //     temp.push_back(*it);
-    // std::sort(temp.begin(), temp.end());
-    // return temp.back() - temp.front();
-
-    int maxElement = *(std::max_element(this->_vec.begin(), this->_vec.end()));
-    int minElement = *(std::min_element(this->_vec.begin(), this->_vec.end()));
-
+    int maxElement = *std::max_element(this->_vec.begin(), this->_vec.end());
+    int minElement = *std::min_element(this->_vec.begin(), this->_vec.end());
     return maxElement - minElement;
 }
 
 void Span::printNumber(void)
 {
-    std::cout << "------------------------------------" << std::endl;
+    std::cout << std::endl << "-------------[elements]-------------" << std::endl;
     std::vector<int>::iterator it;
     for (it = this->_vec.begin(); it != this->_vec.end(); ++it)
         std::cout << *it << " ";
     std::cout << std::endl;
-    std::cout << "------------------------------------" << std::endl;
+    std::cout << "------------------------------------" << std::endl << std::endl;
 }

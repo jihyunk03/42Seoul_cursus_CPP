@@ -3,13 +3,7 @@
 
 # include <iostream>
 # include <vector>
-# include <cstdlib>
 # include <algorithm>
-
-/**
- * size_t, unsigned int -> 혼란 해결하기, current size를 추가?
- * range of iterators: 설마 resize?
-*/
 
 class Span
 {
@@ -30,10 +24,21 @@ class Span
 
         /* member functions */
         void            addNumber(int value);
-        void            addManyRandNumber(unsigned int size);     // size_t
         unsigned int    shortestSpan(void);
         unsigned int    longestSpan(void);
         void            printNumber(void);
+
+        /* additional function impl by template */
+        template<typename T>
+        void addManyNumbers(const T& iterableCont)
+        {
+            if (std::distance(iterableCont.begin(), iterableCont.end()) + this->_vec.size() > this->_maxSize)
+                throw std::out_of_range("❌ cannot add numbers: out of range of this Span");
+
+            typename T::const_iterator it;
+            for (it = iterableCont.begin(); it != iterableCont.end(); ++it)
+                this->_vec.push_back(*it);
+        }
 };
 
 #endif
