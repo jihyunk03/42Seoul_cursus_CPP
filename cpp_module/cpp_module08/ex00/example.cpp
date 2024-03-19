@@ -9,11 +9,23 @@
  *    const T&: pass by const-referenc: 원래의 값을 변화시키지 않으면서 전달된 값을 그대로 함수 내부에서 시용하되, 원래의 값에 참조하여 변형하지 않음 >> 상수 가능
  *    T&: pass by reference: 원래의 값을 참조하여 변형할 수 있다는 원칙 하에 해당 값 자체를 참조하여 함수 내부에서 사용 >> 상수는 참조가 불가능하므로 안됨!!!
 */
-
 template<typename T>
 T add(T a, T b) {
     return a + b;
 }
+// const T& add(const T& a, const T& b) {
+//     return a + b;
+// }
+
+// const int GetNum()
+
+// add(a.GetNum())
+// T add(volatile T& a, volatile T& b)
+
+// const volatile a = 5;
+
+// T add(const volatile T& a, const volatile T& b)
+
 
 int main(void) {
     {
