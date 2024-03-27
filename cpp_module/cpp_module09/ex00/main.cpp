@@ -2,15 +2,17 @@
 
 int main(int ac, char** av)
 {
-    try
-    {
-        BitcoinExchange btc();
-
-        // btc.exec(av[1]);
+    if (ac != 2) {
+        std::cout << "Error: only one database to input" << std::endl;
+        return 1;
     }
-    catch(const std::exception& e)
-    {
+
+    try {
+        BitcoinExchange btc;
+        btc.calculate_bitcoin(av[1]);
+    } catch(const std::exception& e) {
         std::cerr << e.what() << std::endl;
+        return 1;
     }
 
     return 0;
