@@ -13,14 +13,30 @@ BitcoinExchange::~BitcoinExchange()
 /* member function: public */
 void BitcoinExchange::calculate_bitcoin(const char* input)
 {
+    std::ifstream   ifs(input);
+    std::string     buffer;
 
+    if (ifs.is_open() == false)
+        throw std::logic_error("Error: could not open file.");
+    while (std::getline(ifs, buffer)) {
+        try {
+            if (buffer == "date | value")
+                continue;
+            size_t pos = 0;
+            pos = buffer.find(" | ", pos);
+            if (pos == std::string::npos || buffer.size() < 14)
+                throw std::logic_error("Error: bad input form => " + buffer);
+            std::string date = this->_checkDate(buffer.substr(0, pos));
+            double value = this->_checkPrice(buffer.substr(pos + 3), true);
+            std::map<std::string, double>::iterator iter = this->_database.upper_bound(date);
+            if (iter == this->_database.begin())
+                throw std::logic_error("Error: no data in database");
+            std::cout << date << " => " << value << " = " << value * (--iter)->second << std::endl;
+        } catch(const std::exception& e) {
+            std::cerr << e.what() << std::endl;
+        }
+    }
 }
-
-
-
-
-
-
 
 /* member function: private */
 void BitcoinExchange::_checkDatabase(void)
@@ -30,16 +46,15 @@ void BitcoinExchange::_checkDatabase(void)
 
     if (ifs.is_open() == false)
         throw std::logic_error("Error: database could not open file.");
-    while (std::getline(ifs, buffer))
-    {
-        if (buffer == "date, exchange_rate")
+    while (std::getline(ifs, buffer)) {
+        if (buffer == "date,exchange_rate")
             continue;
         size_t pos = 0;
         pos = buffer.find(',', pos);
-        if (pos != LIMITER)     // abort 주의
-            throw std::logic_error("");
-        std::string date = this->_checkDate(buffer.substr(0, pos));
-        double price = this->_checkPrice(buffer.substr(pos + 1));
+        if (pos == std::string::npos || buffer.size() < 12)     // abort 주의
+            throw std::logic_error("Error: bad data form");
+        std::string date = this->_checkDate(buffer.substr(0, pos)); // pos는 여기서 개수로 사용됨
+        double price = this->_checkPrice(buffer.substr(pos + 1), false);
         this->_database.insert(std::make_pair(date, price));
     }
 }
@@ -62,18 +77,23 @@ std::string BitcoinExchange::_checkDate(const std::string& date)
     int     month = strtod(date.substr(FIRSTBAR + 1, 2).c_str(), &pos);
     int     day = strtod(date.substr(SECONDBAR + 1, 2).c_str(), &pos);
 
-    if (year < 2009 || month < 1 || month > 12 || day < 1 || day > 31)
+    if (month < 1 || month > 12 || day < 1 || day > 31)
         throw std::logic_error("Error: bad date => " + date);
-    if (month < 8 && month % 2 == 1 || month > 7 && month % 2 == 0)
+    if ((month < 8 && month % 2 == 1) || (month > 7 && month % 2 == 0)) {
         if (day > 31)
             throw std::logic_error("Error: bad date => " + date);
-    else if (month == 2)
+    } else if (month == 2) {
         if (this->_checkGregorian(year, day) == false)
             throw std::logic_error("Error: bad date(Gregorian) => " + date);
-    else
+    } else {
         if (day > 30)
             throw std::logic_error("Error: bad date => " + date);
-    if ((year > YEAR) || (year == YEAR && month > MONTH) || (year == YEAR && month == MONTH && day > DAY))
+    }
+    if ((year < F_YEAR) || (year == F_YEAR && month < F_MONTH) ||
+        (year == F_YEAR && month == F_MONTH && day < F_DAY))
+        throw std::logic_error("Error: bad date(past) => " + date);
+    if ((year > L_YEAR) || (year == L_YEAR && month > L_MONTH) ||
+        (year == L_YEAR && month == L_MONTH && day > L_DAY))
         throw std::logic_error("Error: bad date(future) => " + date);
     return date;
 }
@@ -82,40 +102,45 @@ bool BitcoinExchange::_checkDateForm(const std::string& date)
 {
     if (date.length() != 10)
         return false;
-    for (int i = 0; i < 10; ++i)
-    {
-        if (i == FIRSTBAR || i == SECONDBAR)
+    for (int i = 0; i < 10; ++i) {
+        if (i == FIRSTBAR || i == SECONDBAR) {
             if (date[i] != '-')
                 return false;
-        else
+        } else {
             if (date[i] < '0' || date[i] > '9')
                 return false;
+        }
     }
     return true;
 }
 
 bool BitcoinExchange::_checkGregorian(int year, int day)
 {
-    if (year % 400 == 0)
+    if (year % 400 == 0) {
         if (day > 29)
             return false;
-    else if (year % 100 != 0 && year % 4 == 0)
+    } else if (year % 100 != 0 && year % 4 == 0) {
         if (day > 29)
             return false;
-    else
+    } else {
         if (day > 28)
             return false;
+    }
     return true;
 }
 
-double BitcoinExchange::_checkPrice(const std::string& price)
+double BitcoinExchange::_checkPrice(const std::string& price, bool input)
 {
-    double      realPrice;
-    char*       pos;
+    double  realPrice;
+    char*   pos;
 
     realPrice = strtod(price.c_str(), &pos);
-    // pos == '\0'인지 검사
-    // if (pos != std::string::npos)
-    //     throw
-
+    std::string remaining(pos);         // pos == '\0'인지 검사 (다른 방법 없음?)
+    if (remaining.empty() == false)
+        throw std::logic_error("Error: not a number.");
+    if (realPrice < 0.0 || (input == true && realPrice == 0.0))
+        throw std::logic_error("Error: not a positive number.");
+    if (input == true && realPrice > 1000.0) // between 0 and 1000
+        throw std::logic_error("Error: too large a number.");
+    return realPrice;
 }
