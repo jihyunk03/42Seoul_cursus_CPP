@@ -19,6 +19,10 @@
 # define L_MONTH    3
 # define L_DAY      25
 
+/**
+ * OCCF -> private으로 해도 되는지 다시 확인(일단 copy 필요 없음)
+*/
+
 class BitcoinExchange
 {
     private:
