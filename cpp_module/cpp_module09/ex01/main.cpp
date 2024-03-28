@@ -7,6 +7,8 @@ int main(int ac, char** av)
         return 1;
     }
 
-    // try catch -> exception throw
+    RPN rpn;
+    rpn.calculate(av[1]);
+
     return 0;
 }
