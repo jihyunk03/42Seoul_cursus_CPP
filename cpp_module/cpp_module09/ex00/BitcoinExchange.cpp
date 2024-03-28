@@ -51,9 +51,9 @@ void BitcoinExchange::_checkDatabase(void)
             continue;
         size_t pos = 0;
         pos = buffer.find(',', pos);
-        if (pos == std::string::npos || buffer.size() < 12)     // abort 주의
+        if (pos == std::string::npos || buffer.size() < 12)
             throw std::logic_error("Error: bad data form");
-        std::string date = this->_checkDate(buffer.substr(0, pos)); // pos는 여기서 개수로 사용됨
+        std::string date = this->_checkDate(buffer.substr(0, pos));
         double price = this->_checkPrice(buffer.substr(pos + 1), false);
         this->_database.insert(std::make_pair(date, price));
     }
@@ -65,7 +65,7 @@ std::string BitcoinExchange::_checkDate(const std::string& date)
         throw std::logic_error("Error: bad date form => " + date);
     /**
      < 유효성 검사 >
-     * year: 2009 ~ (4자리)
+     * year: 2009 ~ 2024(must 4자리)
      * month: 1 ~ 12
      * day: 1 ~ 31(그레고리력, 달별 날짜 적용)
        - month(1, 3, 5, 7, 8, 10, 12) -> 31
