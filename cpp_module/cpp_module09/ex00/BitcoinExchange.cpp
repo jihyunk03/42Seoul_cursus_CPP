@@ -135,8 +135,9 @@ double BitcoinExchange::_checkPrice(const std::string& price, bool input)
     char*   pos;
 
     realPrice = strtod(price.c_str(), &pos);
-    std::string remaining(pos);         // pos == '\0'인지 검사 (다른 방법 없음?)
-    if (remaining.empty() == false)
+    // std::string remaining(pos);         // pos == '\0'인지 검사 (다른 방법 없음?) >> 응 있어
+    // if (remaining.empty() == false)
+    if (*pos != '\0')       // 이걸로 변경했음 >> 굳이 string에 넣는 작업 안해도.. 될듯?
         throw std::logic_error("Error: not a number.");
     if (realPrice < 0.0 || (input == true && realPrice == 0.0))
         throw std::logic_error("Error: not a positive number.");
