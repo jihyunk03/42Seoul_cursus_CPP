@@ -27,14 +27,14 @@ class PmergeMe
         // std::deque<int>     _dq;
 
         /* member function */
+        void    _reserveContainer(int count);
         void    _checkNPush(int count, char** args);
         void    _calculateJacobsthalArr(int count);       // 생성자 단계에서 진행
 
         void    _makePairNSortVec(void);
         void    _mergeSortRecursiveVec(int left, int right);
+        void    _divideMainPendingChain(void);
         void    _binarySearchInsertionVec(void);
-
-        // void    _fordJohnsonAlDq(void);
 
     public:
         /* OCCF */
@@ -43,6 +43,8 @@ class PmergeMe
 
         /* member function */
         void    fordJohnsonAlVec(void);
+        // void    _fordJohnsonAlDq(void);
+
         // print ?
 };
 
