@@ -17,8 +17,6 @@ PmergeMe::~PmergeMe()
 /* member function: public */
 void PmergeMe::fordJohnsonAlVec(void)
 {
-    // this->_mainChain.clear();
-    // this->_pendingChain.clear();
     this->_makePairNSortVec();
     this->_mergeSortRecursiveVec(0, this->_vecPair.size() - 1);
     this->_divideMainPendingChain();
@@ -108,8 +106,8 @@ void PmergeMe::_mergeSortRecursiveVec(int left, int right)
 
 void PmergeMe::_divideMainPendingChain(void)
 {
-    // if (this->_vecPair.empty() == false)
-    //     this->_vecPair.clear();
+    // this->_mainChain.clear();
+    // this->_pending.clear();
     std::vector<std::pair<long, long>>::iterator it = this->_vecPair.begin();
     for (; it != this->_vecPair.end(); ++it) {
         this->_mainChain.push_back((*it).first);

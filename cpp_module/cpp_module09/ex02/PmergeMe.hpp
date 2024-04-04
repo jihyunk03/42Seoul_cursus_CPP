@@ -22,7 +22,7 @@ class PmergeMe
         std::vector<long>                   _mainChain;     // 맴버 변수로는 적합하진 않은것 같은데 이들에 대해 다시 고민해보기
         std::vector<long>                   _pendingChain;  // clear 진행하고 하던가 아니면 아예 없애던가 하자
 
-        std::vector<int>                    _jacobNum;      // dq까지는 만들 이유 없음
+        std::vector<int>                    _jacobNum;// size_t로 바꾸기!!!!!!!!!!!!!!!!!!!!!1
 
         // std::deque<int>     _dq;
 
@@ -31,6 +31,7 @@ class PmergeMe
         void    _checkNPush(int count, char** args);
         void    _calculateJacobsthalArr(int count);
 
+        void    _mergeInsertionSortVec(std::vector<long>& vec, size_t size);
         void    _makePairNSortVec(void);
         void    _mergeSortRecursiveVec(int left, int right);
         void    _divideMainPendingChain(void);
