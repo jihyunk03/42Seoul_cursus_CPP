@@ -5,8 +5,6 @@ PmergeMe::PmergeMe(int ac, char** av)
 {
     if (ac < 3)
         throw std::logic_error("Error: arguments are more than 3");
-    this->_vecArgs.clear();
-    // this->_dq.clear();
     this->_reserveContainer(ac);
     this->_checkNPush(ac, av);
     this->_calculateJacobsthalArr(ac / 2);
