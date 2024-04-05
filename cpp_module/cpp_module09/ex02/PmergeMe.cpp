@@ -5,7 +5,6 @@ PmergeMe::PmergeMe(int ac, char** av)
 {
     if (ac < 3)
         throw std::logic_error("Error: arguments are more than 3");
-    this->_reserveContainer(ac);
     this->_checkNPush(ac, av);
     this->_calculateJacobsthalArr(ac / 2);
 }
@@ -18,71 +17,76 @@ PmergeMe::~PmergeMe()
 void PmergeMe::runFordJohnson(void)
 {
     // clock으로 시간재서 프린트하는 형식으로 진행
-    this->_mergeInsertionSort(this->_vecArgs, this->_vecArgs.size());
+    this->_mergeInsertionSort(this->_vec);
 }
 
 const std::vector<long>& PmergeMe::getSortedVec(void)
 {
-    return this->_vecArgs;
+    return this->_vec;
 }
 
 
 /* member function: private */
-void PmergeMe::_mergeInsertionSort(std::vector<long>& vec, size_t size)
+void PmergeMe::_mergeInsertionSort(std::vector<long>& vec)
 {
     // step 1
-    std::cout << "============IN==============" << std::endl;
+    // std::cout << "============IN==============" << std::endl;
     if (vec.size() < 2) {
-        std::cout << "============return!!!==============" << std::endl << std::endl;
+        // std::cout << "============return!!!==============" << std::endl << std::endl;
         return;
     }
+    size_t                                  halfSize = vec.size() / 2;
     std::vector<long>                       mainChain;
     std::vector<long>                       pendingChain;
     std::vector< std::pair<long, long> >    vecPair;
-    for (size_t i = 0; i < size / 2; ++i) {
-        if (vec[i] > vec[i + size / 2]) {
+    for (size_t i = 0; i < halfSize; ++i) {
+        if (vec[i] > vec[i + halfSize]) {
             mainChain.push_back(vec[i]);
-            pendingChain.push_back(vec[i + size / 2]);
+            pendingChain.push_back(vec[i + halfSize]);
         } else {
-            mainChain.push_back(vec[i + size / 2]);
+            mainChain.push_back(vec[i + halfSize]);
             pendingChain.push_back(vec[i]);
         }
         vecPair.push_back(std::make_pair(mainChain[i], pendingChain[i]));
     }
-    if (size % 2 == 1)
+    if (vec.size() % 2 == 1)
         pendingChain.push_back(vec.back());
 
-    std::cout << "before recursive: vecsize(" << vec.size() << ")[";
-    for (size_t i = 0; i < mainChain.size(); ++i)
-        std::cout << mainChain[i] << " ";
-    std::cout << ", size: " << mainChain.size() << "], [";
-    for (size_t i = 0; i < pendingChain.size(); ++i)
-        std::cout << pendingChain[i] << " ";
-    std::cout << ", size: " << pendingChain.size() << "]" << std::endl;
+    // debug
+    // std::cout << "before recursive: vecsize(" << vec.size() << ")[";
+    // for (size_t i = 0; i < mainChain.size(); ++i)
+    //     std::cout << mainChain[i] << " ";
+    // std::cout << ", size: " << mainChain.size() << "], [";
+    // for (size_t i = 0; i < pendingChain.size(); ++i)
+    //     std::cout << pendingChain[i] << " ";
+    // std::cout << ", size: " << pendingChain.size() << "]" << std::endl;
 
     // step 2
-    this->_mergeInsertionSort(mainChain, mainChain.size());
-    this->_printVector(mainChain, "mainChain(1)");
-    this->_printVector(pendingChain, "pendingChain(1)");
-    std::cout << "vecPair: ";
-    for (size_t i = 0; i < vecPair.size(); ++i) {
-        std::cout << "(" << vecPair[i].first << ", " << vecPair[i].second << ") ";
-    }
-    std::cout << std::endl;
+    this->_mergeInsertionSort(mainChain);
+    // debug
+    // this->_printVector(mainChain, "mainChain(1)");
+    // this->_printVector(pendingChain, "pendingChain(1)");
+    // std::cout << "vecPair: ";
+    // for (size_t i = 0; i < vecPair.size(); ++i) {
+    //     std::cout << "(" << vecPair[i].first << ", " << vecPair[i].second << ") ";
+    // }
+    // std::cout << std::endl;
 
     if (mainChain.size() != 1) {
         for (size_t i = 0; i < mainChain.size(); ++i) {
             size_t findIdx = 0;
             while (mainChain[i] != vecPair[findIdx].first) findIdx++;       // 아아아아ㅏ아아아아아아아아ㅏ아아아아아ㅏ아아아아아아앙아아각아가악아강가아악아가악
-            std::cout << "[mainchain: " << mainChain[i] << ", find idx: " << findIdx << "]" << std::endl;
+            // debug
+            // std::cout << "[mainchain: " << mainChain[i] << ", find idx: " << findIdx << "]" << std::endl;
             pendingChain[i] = vecPair[findIdx].second;
         }
     }
 
     // step 3
     std::vector<long> sortedVec(mainChain);
-    this->_printVector(sortedVec, "mainChain(2)");
-    this->_printVector(pendingChain, "pendingChain(2)");
+    // debug
+    // this->_printVector(sortedVec, "mainChain(2)");
+    // this->_printVector(pendingChain, "pendingChain(2)");
     sortedVec.insert(sortedVec.begin(), pendingChain.front());
     size_t jacobIdx = 1;        // 0은 이미 삽입
     size_t prev = 0, curr = 1;
@@ -96,17 +100,18 @@ void PmergeMe::_mergeInsertionSort(std::vector<long>& vec, size_t size)
             size_t insertPos = this->_binarySearchForInsertion(sortedVec, range, pendingChain[i]);
             sortedVec.insert(sortedVec.begin() + insertPos, pendingChain[i]);
             // debug
-            std::cout << "insertPos: " << insertPos << ", insert-pending: " << pendingChain[i] << std::endl;
-            this->_printVector(sortedVec, "sorting vector");
+            // std::cout << "insertPos: " << insertPos << ", insert-pending: " << pendingChain[i] << std::endl;
+            // this->_printVector(sortedVec, "sorting vector");
         }
         prev = curr++;
     }
-    // vec = sortedVec;
-    std::copy(sortedVec.begin(), sortedVec.end(), vec.begin());
-    std::cout << "============sort: ";
-    for (size_t i = 0; i < sortedVec.size(); ++i)
-        std::cout << sortedVec[i] << " ";
-    std::cout << "============" << std::endl << std::endl;
+    vec = sortedVec;
+    // std::copy(sortedVec.begin(), sortedVec.end(), vec.begin());
+    // debug
+    // std::cout << "============sort: ";
+    // for (size_t i = 0; i < sortedVec.size(); ++i)
+    //     std::cout << sortedVec[i] << " ";
+    // std::cout << "============" << std::endl << std::endl;
 
 }
 
@@ -124,29 +129,18 @@ size_t PmergeMe::_binarySearchForInsertion(std::vector<long>& sortedVec, size_t 
     return left;
 }
 
-void PmergeMe::_reserveContainer(int count)
-{
-    // vector
-    this->_vecSorted.reserve(count);
-    this->_vecArgs.reserve(count);
-    this->_vecPair.reserve(count / 2);
-    this->_mainChain.reserve(count);
-    this->_pendingChain.reserve(count / 2);
-    // deque
-}
-
 void PmergeMe::_checkNPush(int count, char** args)
 {
     for (int i = 1; i < count; i++) {
         char* pos;
         long num = strtol(args[i], &pos, 10);
-        if (*pos != '\0')               // string에 넣어서 empty 검사하는 형식 아니어도 됨 ㅇㅇ
+        if (*pos != '\0')
             throw std::logic_error("Error: arguments are must be integer");
-        if (std::find(this->_vecArgs.begin(), this->_vecArgs.end(), num) != this->_vecArgs.end())
+        if (std::find(this->_vec.begin(), this->_vec.end(), num) != this->_vec.end())
             throw std::logic_error("Error: all numbers must be different from each other");
         if (num <= 0)
             throw std::logic_error("Error: all numbers must be positive integer");
-        this->_vecArgs.push_back(num);
+        this->_vec.push_back(num);
         // this->_dq.push_back(num);
     }
 }
@@ -164,4 +158,38 @@ void PmergeMe::_calculateJacobsthalArr(size_t count)
         this->_jacobNum.push_back(curr);
         ++now;
     }
+}
+
+
+/* just for printing or debugging */
+void PmergeMe::printContainer(const std::vector<long>& vec, const std::string& vecName)
+{
+    std::cout << "[ " << vecName << " ]: ";
+    for (size_t i = 0; i < vec.size(); ++i)
+        std::cout << vec[i] << " ";
+    std::cout << ">> size(" << vec.size() << ")" << std::endl;
+}
+
+void PmergeMe::printContainer(const std::vector< std::pair<long, long> >& vecPair, const std::string& pairName)
+{
+    std::cout << "[ " << pairName << " ]: ";
+    for (size_t i = 0; i < vecPair.size(); ++i)
+        std::cout << "(" << vecPair[i].first << ", " << vecPair[i].second << ") ";
+    std::cout << ">> size(" << vecPair.size() << ")" << std::endl;
+}
+
+void PmergeMe::printContainer(const std::deque<long>& dq, const std::string& dqName)
+{
+    std::cout << "[ " << dqName << " ]: ";
+    for (size_t i = 0; i < dq.size(); ++i)
+        std::cout << dq[i] << " ";
+    std::cout << ">> size(" << dq.size() << ")" << std::endl;
+}
+
+void PmergeMe::printContainer(const std::deque< std::pair<long, long> >& dqPair, const std::string& pairName)
+{
+    std::cout << "[ " << pairName << " ]: ";
+    for (size_t i = 0; i < dqPair.size(); ++i)
+        std::cout << "(" << dqPair[i].first << ", " << dqPair[i].second << ") ";
+    std::cout << ">> size(" << dqPair.size() << ")" << std::endl;
 }
