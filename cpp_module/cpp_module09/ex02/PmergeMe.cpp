@@ -15,17 +15,115 @@ PmergeMe::~PmergeMe()
 {}
 
 /* member function: public */
-void PmergeMe::fordJohnsonAlVec(void)
+void PmergeMe::runFordJohnson(void)
 {
-    this->_makePairNSortVec();
-    this->_mergeSortRecursiveVec(0, this->_vecPair.size() - 1);
-    this->_divideMainPendingChain();
-    this->_binarySearchInsertionVec();
+    // clock으로 시간재서 프린트하는 형식으로 진행
+    this->_mergeInsertionSort(this->_vecArgs, this->_vecArgs.size());
+}
+
+const std::vector<long>& PmergeMe::getSortedVec(void)
+{
+    return this->_vecArgs;
 }
 
 
-
 /* member function: private */
+void PmergeMe::_mergeInsertionSort(std::vector<long>& vec, size_t size)
+{
+    // step 1
+    std::cout << "============IN==============" << std::endl;
+    if (vec.size() < 2) {
+        std::cout << "============return!!!==============" << std::endl << std::endl;
+        return;
+    }
+    std::vector<long>                       mainChain;
+    std::vector<long>                       pendingChain;
+    std::vector< std::pair<long, long> >    vecPair;
+    for (size_t i = 0; i < size / 2; ++i) {
+        if (vec[i] > vec[i + size / 2]) {
+            mainChain.push_back(vec[i]);
+            pendingChain.push_back(vec[i + size / 2]);
+        } else {
+            mainChain.push_back(vec[i + size / 2]);
+            pendingChain.push_back(vec[i]);
+        }
+        vecPair.push_back(std::make_pair(mainChain[i], pendingChain[i]));
+    }
+    if (size % 2 == 1)
+        pendingChain.push_back(vec.back());
+
+    std::cout << "before recursive: vecsize(" << vec.size() << ")[";
+    for (size_t i = 0; i < mainChain.size(); ++i)
+        std::cout << mainChain[i] << " ";
+    std::cout << ", size: " << mainChain.size() << "], [";
+    for (size_t i = 0; i < pendingChain.size(); ++i)
+        std::cout << pendingChain[i] << " ";
+    std::cout << ", size: " << pendingChain.size() << "]" << std::endl;
+
+    // step 2
+    this->_mergeInsertionSort(mainChain, mainChain.size());
+    this->_printVector(mainChain, "mainChain(1)");
+    this->_printVector(pendingChain, "pendingChain(1)");
+    std::cout << "vecPair: ";
+    for (size_t i = 0; i < vecPair.size(); ++i) {
+        std::cout << "(" << vecPair[i].first << ", " << vecPair[i].second << ") ";
+    }
+    std::cout << std::endl;
+
+    if (mainChain.size() != 1) {
+        for (size_t i = 0; i < mainChain.size(); ++i) {
+            size_t findIdx = 0;
+            while (mainChain[i] != vecPair[findIdx].first) findIdx++;       // 아아아아ㅏ아아아아아아아아ㅏ아아아아아ㅏ아아아아아아앙아아각아가악아강가아악아가악
+            std::cout << "[mainchain: " << mainChain[i] << ", find idx: " << findIdx << "]" << std::endl;
+            pendingChain[i] = vecPair[findIdx].second;
+        }
+    }
+
+    // step 3
+    std::vector<long> sortedVec(mainChain);
+    this->_printVector(sortedVec, "mainChain(2)");
+    this->_printVector(pendingChain, "pendingChain(2)");
+    sortedVec.insert(sortedVec.begin(), pendingChain.front());
+    size_t jacobIdx = 1;        // 0은 이미 삽입
+    size_t prev = 0, curr = 1;
+    while (curr <= pendingChain.size() - 1) {
+        curr = this->_jacobNum[jacobIdx++] - 1;
+        if (curr >= pendingChain.size())
+            curr = pendingChain.size() - 1;
+        for (size_t i = curr; i > prev; --i) {
+            size_t range = 0;
+            while (sortedVec[range] != mainChain[i]) range++;
+            size_t insertPos = this->_binarySearchForInsertion(sortedVec, range, pendingChain[i]);
+            sortedVec.insert(sortedVec.begin() + insertPos, pendingChain[i]);
+            // debug
+            std::cout << "insertPos: " << insertPos << ", insert-pending: " << pendingChain[i] << std::endl;
+            this->_printVector(sortedVec, "sorting vector");
+        }
+        prev = curr++;
+    }
+    // vec = sortedVec;
+    std::copy(sortedVec.begin(), sortedVec.end(), vec.begin());
+    std::cout << "============sort: ";
+    for (size_t i = 0; i < sortedVec.size(); ++i)
+        std::cout << sortedVec[i] << " ";
+    std::cout << "============" << std::endl << std::endl;
+
+}
+
+size_t PmergeMe::_binarySearchForInsertion(std::vector<long>& sortedVec, size_t right, long insertValue)
+{
+    size_t left = 0;
+
+    while (left < right) {
+        size_t mid = (left + right) / 2;
+        if (sortedVec[mid] > insertValue)
+            right = mid;
+        else
+            left = mid + 1;
+    }
+    return left;
+}
+
 void PmergeMe::_reserveContainer(int count)
 {
     // vector
@@ -53,71 +151,17 @@ void PmergeMe::_checkNPush(int count, char** args)
     }
 }
 
-void PmergeMe::_calculateJacobsthalArr(int count)
-{
+void PmergeMe::_calculateJacobsthalArr(size_t count)
+{   // 1  3  5  11  21  43  ...
     if (this->_jacobNum.empty() == false)
         this->_jacobNum.clear();
     this->_jacobNum.push_back(1);       // hard-coding
     this->_jacobNum.push_back(3);       // hard-coding
 
-    int curr = 3, now = 2;              // hard-coding
+    size_t curr = 3, now = 2;              // hard-coding
     while (curr <= count) {
         curr = this->_jacobNum[now - 1] + 2 * this->_jacobNum[now - 2];
         this->_jacobNum.push_back(curr);
         ++now;
     }
-}
-
-void PmergeMe::_makePairNSortVec(void)
-{
-    for (int i = 0; i < this->_vecArgs.size(); ++(++i)) {
-        if (i == this->_vecArgs.size() - 1)
-            break;
-        if (this->_vecArgs[i] > this->_vecArgs[i + 1])
-            this->_vecPair.push_back(std::make_pair(this->_vecArgs[i], this->_vecArgs[i + 1]));
-        else
-            this->_vecPair.push_back(std::make_pair(this->_vecArgs[i + 1], this->_vecArgs[i]));
-    }
-}
-
-void PmergeMe::_mergeSortRecursiveVec(int left, int right)
-{
-    if (left >= right)
-        return;
-
-    int mid = (left + right) / 2;
-    this->_mergeSortRecursiveVec(left, mid);
-    this->_mergeSortRecursiveVec(mid + 1, right);
-    std::vector<std::pair<long, long>> temp(this->_vecPair);
-    int l = left, r = mid + 1, now = left;
-    while (l <= mid && r <= right) {
-        if (this->_vecPair[l].first <= this->_vecPair[r].first)
-            temp[now++] = this->_vecPair[l++];
-        else
-            temp[now++] = this->_vecPair[r++];
-    }
-    int remain = l;
-    if (l == mid)
-        remain = r;
-    while (now <= right)
-        temp[now++] = this->_vecPair[remain++];
-    this->_vecPair = temp;
-}
-
-void PmergeMe::_divideMainPendingChain(void)
-{
-    // this->_mainChain.clear();
-    // this->_pending.clear();
-    std::vector<std::pair<long, long>>::iterator it = this->_vecPair.begin();
-    for (; it != this->_vecPair.end(); ++it) {
-        this->_mainChain.push_back((*it).first);
-        this->_pendingChain.push_back((*it).second);
-    }
-    if (this->_vecArgs.size() % 2 == 1)
-        this->_pendingChain.push_back(this->_vecArgs.back());
-}
-
-void PmergeMe::_binarySearchInsertionVec(void)
-{
-
 }
