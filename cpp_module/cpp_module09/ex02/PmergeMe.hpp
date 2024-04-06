@@ -20,7 +20,6 @@ class PmergeMe
         std::deque<long>    _dq;
         std::vector<size_t> _jacobNum;
 
-
         /* member function */
         void    _checkNPush(int count, char** args);
         void    _calculateJacobsthalArr(size_t count);
