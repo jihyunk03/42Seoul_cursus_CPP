@@ -2,8 +2,10 @@
 # define PMERGEME_HPP
 
 # include <iostream>
+# include <algorithm>
 # include <vector>
 # include <deque>
+# include <ctime>
 
 # define PRINTALL   1
 # define PRINTTIME  0
@@ -32,27 +34,23 @@ class PmergeMe
         size_t  _binarySearchForInsertion(std::vector<long>& sortedVec, size_t right, long insertValue);
         size_t  _binarySearchForInsertion(std::deque<long>& sortedDq, size_t right, long insertValue);
 
-        // for debug
-        void    _printVector(const std::vector<long>& vec, const std::string& vecName) {
-            std::cout << vecName << ": ";
-            for (size_t i = 0; i < vec.size(); ++i)
-                std::cout << vec[i] << " ";
-            std::cout << "| size: " << vec.size() << std::endl;
-        }
-
     public:
         /* OCCF */
         PmergeMe(int ac, char** av);
         ~PmergeMe();
 
         /* member function */
-        void    runFordJohnson(void);
-        const std::vector<long>& getSortedVec(void);
+        void                        runFordJohnson(void);
+        const std::vector<long>&    getVec(void);
+        const std::deque<long>&     getDq(void);
 
-        void    printContainer(const std::vector<long>& vec, const std::string& vecName);
-        void    printContainer(const std::vector< std::pair<long, long> >& vecPair, const std::string& pairName);
-        void    printContainer(const std::deque<long>& dq, const std::string& dqName);
-        void    printContainer(const std::deque< std::pair<long, long> >& dqPair, const std::string& pairName);
+        void                        printContainer(const std::vector<long>& vec, const std::string& vecName);
+        void                        printContainer(const std::vector< std::pair<long, long> >& vecPair, const std::string& pairName);
+        void                        printContainer(const std::deque<long>& dq, const std::string& dqName);
+        void                        printContainer(const std::deque< std::pair<long, long> >& dqPair, const std::string& pairName);
+
+        void                        printIsSorted(const std::vector<long>& vec);
+        void                        printIsSorted(const std::deque<long>& dq);
 };
 
 #endif
