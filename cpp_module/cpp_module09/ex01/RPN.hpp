@@ -8,10 +8,6 @@
 
 # define OPERATOR -1
 
-/**
- * stack에 관련된 연산 시, empty로 확인하는 경우 거의 없어서.. (abort 주의하기)
-*/
-
 class RPN
 {
     private:
