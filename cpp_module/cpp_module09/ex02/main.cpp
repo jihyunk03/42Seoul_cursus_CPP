@@ -3,15 +3,18 @@
 int main(int ac, char** av)
 {
     try {
+
         PmergeMe    fordJohnson(ac, av);
 
-        // clock -> vector
-        // clock -> deque
-        // print compare results
         fordJohnson.runFordJohnson();
-        for (int i = 0; i < ac - 1; ++i) {
-            std::cout << fordJohnson.getSortedVec()[i] << std::endl;
-        }
+
+        std::cout << std::endl;
+        fordJohnson.printContainer(fordJohnson.getVec(), "use vector");
+        fordJohnson.printIsSorted(fordJohnson.getVec());
+        std::cout << std::endl;
+        fordJohnson.printContainer(fordJohnson.getDq(), "use deque");
+        fordJohnson.printIsSorted(fordJohnson.getDq());
+
     } catch(const std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
