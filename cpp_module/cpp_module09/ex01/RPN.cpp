@@ -42,8 +42,7 @@ int RPN::_checkType(const std::string& token)
     if (token == "+" || token == "-" || token == "*" || token == "/")
         return OPERATOR;
     res = strtod(token.c_str(), &pos);
-    std::string remaining(pos);
-    if (remaining.empty() == false || res < 0 || res > 9)
+    if (*pos != '\0')
         throw std::logic_error("Error: not a number => " + token);
     return res;
 }
