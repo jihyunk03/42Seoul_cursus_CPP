@@ -42,7 +42,7 @@ class BitcoinExchange
         ~BitcoinExchange();
 
         /* member function */
-        void calculate_bitcoin(const char* input);
+        void calculateBitcoin(const char* input);
 };
 
 #endif

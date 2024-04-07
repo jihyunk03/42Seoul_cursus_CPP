@@ -11,7 +11,7 @@ BitcoinExchange::~BitcoinExchange()
 {}
 
 /* member function: public */
-void BitcoinExchange::calculate_bitcoin(const char* input)
+void BitcoinExchange::calculateBitcoin(const char* input)
 {
     std::ifstream   ifs(input);
     std::string     buffer;
